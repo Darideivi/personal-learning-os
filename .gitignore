@@ -1,0 +1,10 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# graphify incremental cache
+graphify-out/cache/
+
+# Local Claude settings
+.claude/settings.local.json

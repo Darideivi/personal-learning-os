@@ -1,0 +1,686 @@
+{
+  "GD_Focus_Solutions/.claude/settings.local.json": {
+    "mtime": 1790287445.9634428,
+    "seen": 1790956909.4752378,
+    "ast_hash": "c65f35de3c3b73b63b098d9ecfddb75f",
+    "semantic_hash": "c65f35de3c3b73b63b098d9ecfddb75f"
+  },
+  "GD_Focus_Solutions/.mcp.json": {
+    "mtime": 1788814132.1049187,
+    "seen": 1790956909.4752426,
+    "ast_hash": "d4b2a1745ef66c3a82dffcfd5e7e0e67",
+    "semantic_hash": "d4b2a1745ef66c3a82dffcfd5e7e0e67"
+  },
+  "GD_Focus_Solutions/api/index.py": {
+    "mtime": 1788817510.9423473,
+    "seen": 1790956909.4752443,
+    "ast_hash": "26a20baff503b47e14807bce44b3a1c9",
+    "semantic_hash": "26a20baff503b47e14807bce44b3a1c9"
+  },
+  "GD_Focus_Solutions/app/__init__.py": {
+    "mtime": 1790904856.1890924,
+    "seen": 1790956909.475245,
+    "ast_hash": "1d8745fc3e8de535938c9856667b337e",
+    "semantic_hash": "1d8745fc3e8de535938c9856667b337e"
+  },
+  "GD_Focus_Solutions/app/auth/__init__.py": {
+    "mtime": 1788812976.624585,
+    "seen": 1790956909.4752457,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "GD_Focus_Solutions/app/auth/decorators.py": {
+    "mtime": 1788812979.8857982,
+    "seen": 1790956909.4752467,
+    "ast_hash": "33e284ca5d0da891d45b0b52af5cf8bc",
+    "semantic_hash": "33e284ca5d0da891d45b0b52af5cf8bc"
+  },
+  "GD_Focus_Solutions/app/auth/routes.py": {
+    "mtime": 1788828937.1600652,
+    "seen": 1790956909.4752476,
+    "ast_hash": "c2903abbde97460cf9031e0ebddd4901",
+    "semantic_hash": "c2903abbde97460cf9031e0ebddd4901"
+  },
+  "GD_Focus_Solutions/app/company/__init__.py": {
+    "mtime": 1788813059.407173,
+    "seen": 1790956909.475248,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "GD_Focus_Solutions/app/company/routes.py": {
+    "mtime": 1788828985.6052704,
+    "seen": 1790956909.4752488,
+    "ast_hash": "e8db26d111a2db4e0b33d20a4690728e",
+    "semantic_hash": "e8db26d111a2db4e0b33d20a4690728e"
+  },
+  "GD_Focus_Solutions/app/config.py": {
+    "mtime": 1788828911.7343218,
+    "seen": 1790956909.4752493,
+    "ast_hash": "4e05f11c531c5ef78f4cf28dfa4561b4",
+    "semantic_hash": "4e05f11c531c5ef78f4cf28dfa4561b4"
+  },
+  "GD_Focus_Solutions/app/dashboard/__init__.py": {
+    "mtime": 1788812987.7321713,
+    "seen": 1790956909.47525,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "GD_Focus_Solutions/app/dashboard/routes.py": {
+    "mtime": 1790904856.1921058,
+    "seen": 1790956909.4752507,
+    "ast_hash": "5756f4edfcc4004a6f71d408e8a9645a",
+    "semantic_hash": "5756f4edfcc4004a6f71d408e8a9645a"
+  },
+  "GD_Focus_Solutions/app/documents/__init__.py": {
+    "mtime": 1788819592.5201247,
+    "seen": 1790956909.4752512,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "GD_Focus_Solutions/app/documents/routes.py": {
+    "mtime": 1788829021.2279062,
+    "seen": 1790956909.4752517,
+    "ast_hash": "eed809404d61ca92d899770db096108b",
+    "semantic_hash": "eed809404d61ca92d899770db096108b"
+  },
+  "GD_Focus_Solutions/app/extensions.py": {
+    "mtime": 1788828917.1165307,
+    "seen": 1790956909.4752524,
+    "ast_hash": "df918f56d0797babed941d39a62b05c1",
+    "semantic_hash": "df918f56d0797babed941d39a62b05c1"
+  },
+  "GD_Focus_Solutions/app/leads/__init__.py": {
+    "mtime": 1790904801.5752668,
+    "seen": 1790956909.4752533,
+    "ast_hash": "14f22d7cfdd589b888c54df1a4cf65fa",
+    "semantic_hash": "14f22d7cfdd589b888c54df1a4cf65fa"
+  },
+  "GD_Focus_Solutions/app/leads/routes.py": {
+    "mtime": 1790904819.2329993,
+    "seen": 1790956909.4752538,
+    "ast_hash": "4604ea59a5935e400a268d5ac0c73a14",
+    "semantic_hash": "4604ea59a5935e400a268d5ac0c73a14"
+  },
+  "GD_Focus_Solutions/app/opportunities/__init__.py": {
+    "mtime": 1790274760.705292,
+    "seen": 1790956909.4752543,
+    "ast_hash": "3c770c7a506ef50874a4be8b9006851a",
+    "semantic_hash": "3c770c7a506ef50874a4be8b9006851a"
+  },
+  "GD_Focus_Solutions/app/opportunities/routes.py": {
+    "mtime": 1790916996.9159477,
+    "seen": 1790956909.4752548,
+    "ast_hash": "6fb20a0468829e24f6b70c7f898b728c",
+    "semantic_hash": "6fb20a0468829e24f6b70c7f898b728c"
+  },
+  "GD_Focus_Solutions/app/roadmap_data.py": {
+    "mtime": 1790905051.122413,
+    "seen": 1790956909.4752555,
+    "ast_hash": "8ea08b7d7e7b3b669e668558a497e8f7",
+    "semantic_hash": "8ea08b7d7e7b3b669e668558a497e8f7"
+  },
+  "GD_Focus_Solutions/app/services/commbuys_service.py": {
+    "mtime": 1790288970.6200628,
+    "seen": 1790956909.4752562,
+    "ast_hash": "ffaf9ab39604d27c904a5d3c4592be18",
+    "semantic_hash": "ffaf9ab39604d27c904a5d3c4592be18"
+  },
+  "GD_Focus_Solutions/app/services/geo.py": {
+    "mtime": 1790284098.109967,
+    "seen": 1790956909.475257,
+    "ast_hash": "3c8b0b803cba105120921e33fc3528b9",
+    "semantic_hash": "3c8b0b803cba105120921e33fc3528b9"
+  },
+  "GD_Focus_Solutions/app/services/sam_gov_service.py": {
+    "mtime": 1790283020.1523647,
+    "seen": 1790956909.4752576,
+    "ast_hash": "7d645a746175810e525cfe6df4b58d4b",
+    "semantic_hash": "7d645a746175810e525cfe6df4b58d4b"
+  },
+  "GD_Focus_Solutions/app/static/vendor/adminlte/js/adminlte.min.js": {
+    "mtime": 1788816843.0629718,
+    "seen": 1790956909.475258,
+    "ast_hash": "ba1d35c805a9a742b2c297d97117e82d",
+    "semantic_hash": "ba1d35c805a9a742b2c297d97117e82d"
+  },
+  "GD_Focus_Solutions/migrations/0008_create_opportunities_table.sql": {
+    "mtime": 1790277115.6829,
+    "seen": 1790956909.4752588,
+    "ast_hash": "802676b7d4a8221fa683a96d6ffde2a1",
+    "semantic_hash": "802676b7d4a8221fa683a96d6ffde2a1"
+  },
+  "GD_Focus_Solutions/migrations/0009_align_opportunities_table.sql": {
+    "mtime": 1790276935.8426003,
+    "seen": 1790956909.4752593,
+    "ast_hash": "2fcac3a1e1e70efca35f0eebb1c91239",
+    "semantic_hash": "2fcac3a1e1e70efca35f0eebb1c91239"
+  },
+  "GD_Focus_Solutions/migrations/0010_add_expired_status.sql": {
+    "mtime": 1790282778.02177,
+    "seen": 1790956909.47526,
+    "ast_hash": "7a9d52a4c597fc12e8f0683215035ee5",
+    "semantic_hash": "7a9d52a4c597fc12e8f0683215035ee5"
+  },
+  "GD_Focus_Solutions/migrations/0011_create_opportunity_searches.sql": {
+    "mtime": 1790284948.5284703,
+    "seen": 1790956909.4752605,
+    "ast_hash": "76ddced917d676e8ee327bdfbbcf736d",
+    "semantic_hash": "76ddced917d676e8ee327bdfbbcf736d"
+  },
+  "GD_Focus_Solutions/migrations/0012_commbuys_detail_fields.sql": {
+    "mtime": 1790288112.6065667,
+    "seen": 1790956909.475261,
+    "ast_hash": "836e8dbb999a5bca7c8b2e6bb4fe29c5",
+    "semantic_hash": "836e8dbb999a5bca7c8b2e6bb4fe29c5"
+  },
+  "GD_Focus_Solutions/migrations/0013_create_leads.sql": {
+    "mtime": 1790903979.3958578,
+    "seen": 1790956909.4752617,
+    "ast_hash": "a4fc50a83897ec2437af8e47d0827e1c",
+    "semantic_hash": "a4fc50a83897ec2437af8e47d0827e1c"
+  },
+  "GD_Focus_Solutions/run.py": {
+    "mtime": 1788813125.7344108,
+    "seen": 1790956909.4752622,
+    "ast_hash": "8e11aee62db113e92a24f01afe17397d",
+    "semantic_hash": "8e11aee62db113e92a24f01afe17397d"
+  },
+  "GD_Focus_Solutions/supabase/schema.sql": {
+    "mtime": 1788813053.2369645,
+    "seen": 1790956909.4752626,
+    "ast_hash": "716049069c1da0a6e69fa794c21ec7ea",
+    "semantic_hash": "716049069c1da0a6e69fa794c21ec7ea"
+  },
+  "GD_Focus_Solutions/tools/import_past_due_sam.py": {
+    "mtime": 1790283187.7754357,
+    "seen": 1790956909.475263,
+    "ast_hash": "6fe25a59ffdf515251572e7860f79d88",
+    "semantic_hash": "6fe25a59ffdf515251572e7860f79d88"
+  },
+  "GD_Focus_Solutions/vercel.json": {
+    "mtime": 1788817683.2555866,
+    "seen": 1790956909.4752638,
+    "ast_hash": "232cb766bc2cfff2f07b60614acdc35f",
+    "semantic_hash": "232cb766bc2cfff2f07b60614acdc35f"
+  },
+  "Company_website/eslint.config.mjs": {
+    "mtime": 1790891343.5740438,
+    "seen": 1790956909.4752645,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "Company_website/index.ts": {
+    "mtime": 1790896435.0455215,
+    "seen": 1790956909.475265,
+    "ast_hash": "230c5244820847c8931de08d6eeb31e1",
+    "semantic_hash": "230c5244820847c8931de08d6eeb31e1"
+  },
+  "Company_website/next.config.ts": {
+    "mtime": 1790916911.5440645,
+    "seen": 1790956909.4752655,
+    "ast_hash": "6fc0c9e04b1680e60b1f361b1e7bf3b2",
+    "semantic_hash": "6fc0c9e04b1680e60b1f361b1e7bf3b2"
+  },
+  "Company_website/package.json": {
+    "mtime": 1790918177.02309,
+    "seen": 1790956909.4752662,
+    "ast_hash": "54576e1520e5d4fdde869f1b7b7563e6",
+    "semantic_hash": "54576e1520e5d4fdde869f1b7b7563e6"
+  },
+  "Company_website/postcss.config.mjs": {
+    "mtime": 1790891343.5879967,
+    "seen": 1790956909.475267,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "Company_website/scripts/generate-badges.ts": {
+    "mtime": 1790897422.9526074,
+    "seen": 1790956909.4752674,
+    "ast_hash": "5a9ff5d940327e36d8287b34456992e2",
+    "semantic_hash": "5a9ff5d940327e36d8287b34456992e2"
+  },
+  "Company_website/scripts/generate-social.mjs": {
+    "mtime": 1790918174.37017,
+    "seen": 1790956909.4752681,
+    "ast_hash": "11506526b77a8dd668b7deb856dffde6",
+    "semantic_hash": "11506526b77a8dd668b7deb856dffde6"
+  },
+  "Company_website/scripts/prepare-logo.mjs": {
+    "mtime": 1790891438.212682,
+    "seen": 1790956909.4752688,
+    "ast_hash": "3c9cf753a905b9d1d7c94a6f52d2caba",
+    "semantic_hash": "3c9cf753a905b9d1d7c94a6f52d2caba"
+  },
+  "Company_website/scripts/screenshot.mjs": {
+    "mtime": 1790891869.5326595,
+    "seen": 1790956909.4752693,
+    "ast_hash": "af04c60314c64bf9c9295d1f0f0e7cd4",
+    "semantic_hash": "af04c60314c64bf9c9295d1f0f0e7cd4"
+  },
+  "Company_website/src/app/actions/submitLead.ts": {
+    "mtime": 1790916911.545068,
+    "seen": 1790956909.47527,
+    "ast_hash": "a99ca591b4b4a99646edc549a4637507",
+    "semantic_hash": "a99ca591b4b4a99646edc549a4637507"
+  },
+  "Company_website/src/app/layout.tsx": {
+    "mtime": 1790918203.778164,
+    "seen": 1790956909.4752707,
+    "ast_hash": "ccf9a79cdcea1fd4773c9ba00ae519ee",
+    "semantic_hash": "ccf9a79cdcea1fd4773c9ba00ae519ee"
+  },
+  "Company_website/src/app/page.tsx": {
+    "mtime": 1790891685.9717252,
+    "seen": 1790956909.4752715,
+    "ast_hash": "5fc4df9173ae6d25ed48adc525b335ce",
+    "semantic_hash": "5fc4df9173ae6d25ed48adc525b335ce"
+  },
+  "Company_website/src/app/robots.ts": {
+    "mtime": 1790916911.545068,
+    "seen": 1790956909.4752717,
+    "ast_hash": "fe4e2c08ad4f1c5ab751dc9cd665d142",
+    "semantic_hash": "fe4e2c08ad4f1c5ab751dc9cd665d142"
+  },
+  "Company_website/src/app/sitemap.ts": {
+    "mtime": 1790916911.5460768,
+    "seen": 1790956909.4752724,
+    "ast_hash": "e5d1a286ea8d6a8560ae6dd395c27d0d",
+    "semantic_hash": "e5d1a286ea8d6a8560ae6dd395c27d0d"
+  },
+  "Company_website/src/components/sections/Contracting.tsx": {
+    "mtime": 1790892568.354972,
+    "seen": 1790956909.475273,
+    "ast_hash": "862b75e52c57e48325a11f7cdd596dc1",
+    "semantic_hash": "862b75e52c57e48325a11f7cdd596dc1"
+  },
+  "Company_website/src/components/sections/Hero.tsx": {
+    "mtime": 1790899591.0920143,
+    "seen": 1790956909.4752734,
+    "ast_hash": "590298c8dbb00cbab9dd6911ef203d7d",
+    "semantic_hash": "590298c8dbb00cbab9dd6911ef203d7d"
+  },
+  "Company_website/src/components/sections/HeroBadge.tsx": {
+    "mtime": 1790918213.9190004,
+    "seen": 1790956909.475274,
+    "ast_hash": "eb05130a75986d6cc977e88654c9f11d",
+    "semantic_hash": "eb05130a75986d6cc977e88654c9f11d"
+  },
+  "Company_website/src/components/sections/Industries.tsx": {
+    "mtime": 1790899453.0031872,
+    "seen": 1790956909.4752746,
+    "ast_hash": "7bc32de208ad8e8b97d2de42b03daeea",
+    "semantic_hash": "7bc32de208ad8e8b97d2de42b03daeea"
+  },
+  "Company_website/src/components/sections/Process.tsx": {
+    "mtime": 1790891804.7324183,
+    "seen": 1790956909.475275,
+    "ast_hash": "c29d5b3b394313fb3ac5d66f59067fbf",
+    "semantic_hash": "c29d5b3b394313fb3ac5d66f59067fbf"
+  },
+  "Company_website/src/components/sections/ServiceArea.tsx": {
+    "mtime": 1790899473.7269275,
+    "seen": 1790956909.4752755,
+    "ast_hash": "81e5be836c6c403db73d1fdb906804bd",
+    "semantic_hash": "81e5be836c6c403db73d1fdb906804bd"
+  },
+  "Company_website/src/components/sections/Services.tsx": {
+    "mtime": 1790899453.0777378,
+    "seen": 1790956909.475276,
+    "ast_hash": "defa1d2047800a133d9f315903ac1b0c",
+    "semantic_hash": "defa1d2047800a133d9f315903ac1b0c"
+  },
+  "Company_website/src/components/sections/SiteFooter.tsx": {
+    "mtime": 1790899453.6072526,
+    "seen": 1790956909.4752765,
+    "ast_hash": "e79d4c69af2e5a078d83c5ac783772fd",
+    "semantic_hash": "e79d4c69af2e5a078d83c5ac783772fd"
+  },
+  "Company_website/src/components/sections/SiteHeader.tsx": {
+    "mtime": 1790899453.601251,
+    "seen": 1790956909.475277,
+    "ast_hash": "0027b0bef344ce30a4a461401862eb7f",
+    "semantic_hash": "0027b0bef344ce30a4a461401862eb7f"
+  },
+  "Company_website/src/components/sections/TrustStrip.tsx": {
+    "mtime": 1790891804.6449597,
+    "seen": 1790956909.475278,
+    "ast_hash": "bece46a1ba92523d2358913a9956536d",
+    "semantic_hash": "bece46a1ba92523d2358913a9956536d"
+  },
+  "Company_website/src/components/sections/WalkthroughCTA.tsx": {
+    "mtime": 1790897598.3609307,
+    "seen": 1790956909.4752784,
+    "ast_hash": "8c0823059fca5806d9cda382e867548f",
+    "semantic_hash": "8c0823059fca5806d9cda382e867548f"
+  },
+  "Company_website/src/components/sections/WalkthroughForm.tsx": {
+    "mtime": 1790916911.5470786,
+    "seen": 1790956909.4752789,
+    "ast_hash": "c590c52af27d9b221f058fabe6be4f10",
+    "semantic_hash": "c590c52af27d9b221f058fabe6be4f10"
+  },
+  "Company_website/src/components/sections/WhyUs.tsx": {
+    "mtime": 1790899330.3135104,
+    "seen": 1790956909.4752793,
+    "ast_hash": "c090ddd34a7666b8e73c98fdc8883ded",
+    "semantic_hash": "c090ddd34a7666b8e73c98fdc8883ded"
+  },
+  "Company_website/src/components/ui/Button.tsx": {
+    "mtime": 1790891546.0937922,
+    "seen": 1790956909.4752798,
+    "ast_hash": "3fe399278db0f3d448230b15286a3004",
+    "semantic_hash": "3fe399278db0f3d448230b15286a3004"
+  },
+  "Company_website/src/components/ui/Container.tsx": {
+    "mtime": 1790891542.606491,
+    "seen": 1790956909.4752803,
+    "ast_hash": "5e7e53436576c5f3d84d4297d7858ec2",
+    "semantic_hash": "5e7e53436576c5f3d84d4297d7858ec2"
+  },
+  "Company_website/src/components/ui/Icon.tsx": {
+    "mtime": 1790891542.4072602,
+    "seen": 1790956909.4752812,
+    "ast_hash": "198e3c84f5877efb88500b427a007432",
+    "semantic_hash": "198e3c84f5877efb88500b427a007432"
+  },
+  "Company_website/src/components/ui/SectionHeading.tsx": {
+    "mtime": 1790891542.686585,
+    "seen": 1790956909.475282,
+    "ast_hash": "ff6d02cefc6fecfd80ff130aba8442d5",
+    "semantic_hash": "ff6d02cefc6fecfd80ff130aba8442d5"
+  },
+  "Company_website/src/components/ui/Turnstile.tsx": {
+    "mtime": 1790916911.5483034,
+    "seen": 1790956909.4752822,
+    "ast_hash": "1249004ea18705b344478530567b6ac4",
+    "semantic_hash": "1249004ea18705b344478530567b6ac4"
+  },
+  "Company_website/src/content/format.ts": {
+    "mtime": 1790892599.8441465,
+    "seen": 1790956909.4752827,
+    "ast_hash": "e61dba59836498c7e2c03cb55cc93090",
+    "semantic_hash": "e61dba59836498c7e2c03cb55cc93090"
+  },
+  "Company_website/src/content/site.ts": {
+    "mtime": 1790912333.6151698,
+    "seen": 1790956909.4752834,
+    "ast_hash": "b4e30dfc4f6ac6b4c7754777b18c7f6a",
+    "semantic_hash": "b4e30dfc4f6ac6b4c7754777b18c7f6a"
+  },
+  "Company_website/src/lib/lead-schema.ts": {
+    "mtime": 1790905465.0274475,
+    "seen": 1790956909.4752839,
+    "ast_hash": "e246949aa99974cdeb1a47ae919e563c",
+    "semantic_hash": "e246949aa99974cdeb1a47ae919e563c"
+  },
+  "Company_website/src/lib/supabase-server.ts": {
+    "mtime": 1790905465.0274475,
+    "seen": 1790956909.4752846,
+    "ast_hash": "9b4fdd85e8f10ca991119737a0d33b85",
+    "semantic_hash": "9b4fdd85e8f10ca991119737a0d33b85"
+  },
+  "Company_website/src/lib/turnstile.ts": {
+    "mtime": 1790916911.549306,
+    "seen": 1790956909.475285,
+    "ast_hash": "58d4e643e402f1c4eaec67f4e3ecab6d",
+    "semantic_hash": "58d4e643e402f1c4eaec67f4e3ecab6d"
+  },
+  "Company_website/tsconfig.json": {
+    "mtime": 1790891343.5934222,
+    "seen": 1790956909.4752855,
+    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
+    "semantic_hash": "ee17fd1c97c735e9f3564e3f5251f125"
+  },
+  "GD-Focus-Ecosystem/.claude/settings.local.json": {
+    "mtime": 1790902990.0574148,
+    "seen": 1790956909.475286,
+    "ast_hash": "a71ec6960ce76ef59f281bd59628f52d",
+    "semantic_hash": "a71ec6960ce76ef59f281bd59628f52d"
+  },
+  "GD_Focus_Solutions/.claude/skills/federal-data-integration.md": {
+    "mtime": 1790275315.018488,
+    "seen": 1790956909.4752865,
+    "ast_hash": "90dc089f320aeba4a0351718a5f61a04",
+    "semantic_hash": "90dc089f320aeba4a0351718a5f61a04"
+  },
+  "GD_Focus_Solutions/.claude/skills/secure-module-bootstrap.md": {
+    "mtime": 1790277105.7814367,
+    "seen": 1790956909.4752872,
+    "ast_hash": "55b667bf7beffd2fe0089424e2adda3e",
+    "semantic_hash": "55b667bf7beffd2fe0089424e2adda3e"
+  },
+  "GD_Focus_Solutions/CLAUDE.md": {
+    "mtime": 1790275343.8153775,
+    "seen": 1790956909.475288,
+    "ast_hash": "e8a21138af4f283f1d22b51b926fa5fe",
+    "semantic_hash": "e8a21138af4f283f1d22b51b926fa5fe"
+  },
+  "GD_Focus_Solutions/ECOSYSTEM_INTEGRATION.md": {
+    "mtime": 1790911279.846545,
+    "seen": 1790956909.4752884,
+    "ast_hash": "c60d1c37e198afc34d30691adf03369e",
+    "semantic_hash": "c60d1c37e198afc34d30691adf03369e"
+  },
+  "GD_Focus_Solutions/NEXT-UP.md": {
+    "mtime": 1790905051.1259305,
+    "seen": 1790956909.4752889,
+    "ast_hash": "b651418e5f88cfa41316fc95c7e2b0dd",
+    "semantic_hash": "b651418e5f88cfa41316fc95c7e2b0dd"
+  },
+  "GD_Focus_Solutions/PROJECT.md": {
+    "mtime": 1788816972.3016381,
+    "seen": 1790956909.4752896,
+    "ast_hash": "45ade1d388ec3ad81e67a858593c34c1",
+    "semantic_hash": "45ade1d388ec3ad81e67a858593c34c1"
+  },
+  "GD_Focus_Solutions/ROADMAP.md": {
+    "mtime": 1790905051.1259305,
+    "seen": 1790956909.47529,
+    "ast_hash": "d9f4bf2db2be20696a9c41ebf592e019",
+    "semantic_hash": "d9f4bf2db2be20696a9c41ebf592e019"
+  },
+  "GD_Focus_Solutions/SECURITY-REVIEW.md": {
+    "mtime": 1788829156.2379005,
+    "seen": 1790956909.4752905,
+    "ast_hash": "824768553fef84a41fa43982438ccf27",
+    "semantic_hash": "824768553fef84a41fa43982438ccf27"
+  },
+  "GD_Focus_Solutions/SESSION_HANDOFF.md": {
+    "mtime": 1790917015.9616392,
+    "seen": 1790956909.4752913,
+    "ast_hash": "9b5b03b4009260b987fb2c73fded7a65",
+    "semantic_hash": "9b5b03b4009260b987fb2c73fded7a65"
+  },
+  "GD_Focus_Solutions/app/templates/auth/login.html": {
+    "mtime": 1788829086.8862007,
+    "seen": 1790956909.4752917,
+    "ast_hash": "fa98a3b70aa3ba9e58bef759b9ee1f41",
+    "semantic_hash": "fa98a3b70aa3ba9e58bef759b9ee1f41"
+  },
+  "GD_Focus_Solutions/app/templates/base.html": {
+    "mtime": 1790904856.1901119,
+    "seen": 1790956909.4752922,
+    "ast_hash": "98024e85404b1841e3b53e6b73eb6253",
+    "semantic_hash": "98024e85404b1841e3b53e6b73eb6253"
+  },
+  "GD_Focus_Solutions/app/templates/company/profile.html": {
+    "mtime": 1788829088.0043104,
+    "seen": 1790956909.4752927,
+    "ast_hash": "4d6f72927cb305ff7cded842eb7bd3d0",
+    "semantic_hash": "4d6f72927cb305ff7cded842eb7bd3d0"
+  },
+  "GD_Focus_Solutions/app/templates/dashboard/index.html": {
+    "mtime": 1790904856.1941168,
+    "seen": 1790956909.4752932,
+    "ast_hash": "dddac87d16e6a7dccc17c9f5ee0f2de6",
+    "semantic_hash": "dddac87d16e6a7dccc17c9f5ee0f2de6"
+  },
+  "GD_Focus_Solutions/app/templates/documents/index.html": {
+    "mtime": 1788829092.2856524,
+    "seen": 1790956909.475295,
+    "ast_hash": "f373ea3542a9c3bc20e157132dd295a6",
+    "semantic_hash": "f373ea3542a9c3bc20e157132dd295a6"
+  },
+  "GD_Focus_Solutions/app/templates/leads/detail.html": {
+    "mtime": 1790904841.7865875,
+    "seen": 1790956909.4752955,
+    "ast_hash": "b5f4ba62572d75097cda80743820b7da",
+    "semantic_hash": "b5f4ba62572d75097cda80743820b7da"
+  },
+  "GD_Focus_Solutions/app/templates/leads/index.html": {
+    "mtime": 1790904841.7285914,
+    "seen": 1790956909.4752963,
+    "ast_hash": "14d5af871ee402bea4bfcd1357c8fc24",
+    "semantic_hash": "14d5af871ee402bea4bfcd1357c8fc24"
+  },
+  "GD_Focus_Solutions/app/templates/opportunities/_results_table.html": {
+    "mtime": 1790288189.8809013,
+    "seen": 1790956909.4752967,
+    "ast_hash": "78ef1c395099cbd6a0e4f074535e3f7b",
+    "semantic_hash": "78ef1c395099cbd6a0e4f074535e3f7b"
+  },
+  "GD_Focus_Solutions/app/templates/opportunities/_tabs.html": {
+    "mtime": 1790285049.3340523,
+    "seen": 1790956909.4752972,
+    "ast_hash": "d079d8753d3a09a9cb99ee71a7d9be2a",
+    "semantic_hash": "d079d8753d3a09a9cb99ee71a7d9be2a"
+  },
+  "GD_Focus_Solutions/app/templates/opportunities/detail.html": {
+    "mtime": 1790288223.5172825,
+    "seen": 1790956909.4752982,
+    "ast_hash": "8f44555a7d81a62e54ec991b82beef15",
+    "semantic_hash": "8f44555a7d81a62e54ec991b82beef15"
+  },
+  "GD_Focus_Solutions/app/templates/opportunities/import.html": {
+    "mtime": 1790288999.954899,
+    "seen": 1790956909.4752986,
+    "ast_hash": "65766b4727117332dae977ecf0d47ec5",
+    "semantic_hash": "65766b4727117332dae977ecf0d47ec5"
+  },
+  "GD_Focus_Solutions/app/templates/opportunities/index.html": {
+    "mtime": 1790285116.6250758,
+    "seen": 1790956909.4752991,
+    "ast_hash": "370e206f3bb064bb92ad1672c53c5343",
+    "semantic_hash": "370e206f3bb064bb92ad1672c53c5343"
+  },
+  "GD_Focus_Solutions/app/templates/opportunities/search_detail.html": {
+    "mtime": 1790285071.9820297,
+    "seen": 1790956909.4752996,
+    "ast_hash": "0caa8a79533e74f9ef1f31855ec51f7b",
+    "semantic_hash": "0caa8a79533e74f9ef1f31855ec51f7b"
+  },
+  "GD_Focus_Solutions/app/templates/opportunities/searches.html": {
+    "mtime": 1790285071.8909402,
+    "seen": 1790956909.4753003,
+    "ast_hash": "a0b47abb81ca78bdfcad5fef853046da",
+    "semantic_hash": "a0b47abb81ca78bdfcad5fef853046da"
+  },
+  "GD_Focus_Solutions/learning/MUST-KNOW.md": {
+    "mtime": 1788828594.0169468,
+    "seen": 1790956909.4753008,
+    "ast_hash": "e8805318dc12ae790c7931607f031920",
+    "semantic_hash": "e8805318dc12ae790c7931607f031920"
+  },
+  "GD_Focus_Solutions/learning/concepts-to-learn/README.md": {
+    "mtime": 1788820305.2487173,
+    "seen": 1790956909.4753013,
+    "ast_hash": "e4888fdea7f2df155355650ca8a74ddc",
+    "semantic_hash": "e4888fdea7f2df155355650ca8a74ddc"
+  },
+  "GD_Focus_Solutions/learning/progress-log.md": {
+    "mtime": 1788820297.5955703,
+    "seen": 1790956909.4753022,
+    "ast_hash": "88180b2f8ce4cc647ba32f9358883d32",
+    "semantic_hash": "88180b2f8ce4cc647ba32f9358883d32"
+  },
+  "GD_Focus_Solutions/requirements.txt": {
+    "mtime": 1790283775.9095988,
+    "seen": 1790956909.4753027,
+    "ast_hash": "d3361194e086b9ecae0a2b12562fda2b",
+    "semantic_hash": "d3361194e086b9ecae0a2b12562fda2b"
+  },
+  "GD_Focus_Solutions/tools/README.md": {
+    "mtime": 1790283052.416303,
+    "seen": 1790956909.4753032,
+    "ast_hash": "8c532ed95fd5c701243dfc0c25d50079",
+    "semantic_hash": "8c532ed95fd5c701243dfc0c25d50079"
+  },
+  "GD_Focus_Solutions/workflows/README.md": {
+    "mtime": 1788807231.9043574,
+    "seen": 1790956909.4753036,
+    "ast_hash": "b0492c4d362258fb5589c44abf80d61f",
+    "semantic_hash": "b0492c4d362258fb5589c44abf80d61f"
+  },
+  "Company_website/AGENTS.md": {
+    "mtime": 1790891343.5690436,
+    "seen": 1790956909.4753044,
+    "ast_hash": "01e8142356e15c3404e0d84c48187cd0",
+    "semantic_hash": "01e8142356e15c3404e0d84c48187cd0"
+  },
+  "Company_website/CLAUDE.md": {
+    "mtime": 1790886805.8848646,
+    "seen": 1790956909.4753048,
+    "ast_hash": "20e4d24231eb6cb94b8d1b6bc553acfa",
+    "semantic_hash": "20e4d24231eb6cb94b8d1b6bc553acfa"
+  },
+  "Company_website/ECOSYSTEM_INTEGRATION.md": {
+    "mtime": 1790916911.543065,
+    "seen": 1790956909.4753056,
+    "ast_hash": "867a1b771d488e57ab911dfbd3eb7f81",
+    "semantic_hash": "867a1b771d488e57ab911dfbd3eb7f81"
+  },
+  "GD-Focus-Ecosystem/AI_Contract_Command_Center/README.md": {
+    "mtime": 1790956539.3552113,
+    "seen": 1790956909.475306,
+    "ast_hash": "41f1c6a689a4145c7bdf7b236a5b3507",
+    "semantic_hash": "41f1c6a689a4145c7bdf7b236a5b3507"
+  },
+  "GD-Focus-Ecosystem/CLAUDE.md": {
+    "mtime": 1790956542.790944,
+    "seen": 1790956909.4753065,
+    "ast_hash": "99cdc6c1846c75d95248f80948f3a57f",
+    "semantic_hash": "99cdc6c1846c75d95248f80948f3a57f"
+  },
+  "GD-Focus-Ecosystem/Company_Website/README.md": {
+    "mtime": 1790956540.987977,
+    "seen": 1790956909.475307,
+    "ast_hash": "6ac28550414ef85ab96b49a60a1b0e50",
+    "semantic_hash": "6ac28550414ef85ab96b49a60a1b0e50"
+  },
+  "GD-Focus-Ecosystem/README.md": {
+    "mtime": 1790956537.7003794,
+    "seen": 1790956909.4753075,
+    "ast_hash": "74b404c24fbc97f0de87ed56e9567730",
+    "semantic_hash": "74b404c24fbc97f0de87ed56e9567730"
+  },
+  "GD-Focus-Ecosystem/homelab/N8N_HOMELAB_HANDOFF.md": {
+    "mtime": 1790956437.1846979,
+    "seen": 1790956909.475308,
+    "ast_hash": "11a4b78241da0ff6484d6dd6caa421e3",
+    "semantic_hash": "11a4b78241da0ff6484d6dd6caa421e3"
+  },
+  "GD-Focus-Ecosystem/plans/AI_APP_IMPLEMENTATION.md": {
+    "mtime": 1790902604.7109544,
+    "seen": 1790956909.4753087,
+    "ast_hash": "c477a077639af02e8c98cf09387ab0b0",
+    "semantic_hash": "c477a077639af02e8c98cf09387ab0b0"
+  },
+  "GD-Focus-Ecosystem/plans/PHASE1_IMPLEMENTATION_PLAN.md": {
+    "mtime": 1790917068.200809,
+    "seen": 1790956909.4753094,
+    "ast_hash": "74bb4a2aae4ab68a616720f624ff67b2",
+    "semantic_hash": "74bb4a2aae4ab68a616720f624ff67b2"
+  },
+  "GD-Focus-Ecosystem/plans/SYSTEM_INTEGRATION_PLAN.md": {
+    "mtime": 1790902601.660165,
+    "seen": 1790956909.4753098,
+    "ast_hash": "8f1f7b71b305c839d8411e0c5e81d89f",
+    "semantic_hash": "8f1f7b71b305c839d8411e0c5e81d89f"
+  },
+  "GD-Focus-Ecosystem/plans/WEBSITE_IMPLEMENTATION.md": {
+    "mtime": 1790902607.1271162,
+    "seen": 1790956909.4753103,
+    "ast_hash": "9612045ae5361f4131efb6bfb9af0ec8",
+    "semantic_hash": "9612045ae5361f4131efb6bfb9af0ec8"
+  }
+}
