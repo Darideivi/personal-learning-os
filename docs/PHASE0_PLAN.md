@@ -16,12 +16,12 @@ Read CLAUDE.md and docs/PHASE0_PLAN.md. Follow the plan step by step. Use ECC. A
 
 Turn on auto mode first, so goal turns don't stop for approvals. The run splits in two because the first `npx learnhouse dev` needs David at the keyboard.
 
-**Before goal 1, David does by hand:** section A, plus `sudo apt update && sudo apt install -y git curl build-essential` inside Ubuntu (it needs his password).
+**Before goal 1, David does by hand:** section A, plus `sudo apt update && sudo apt install -y git curl build-essential unzip` inside Ubuntu (it needs his password; `unzip` is needed by the bun installer).
 
 **Goal 1: tools, fork and env file**
 
 ```text
-/goal Following CLAUDE.md and docs/PHASE0_PLAN.md: section B tools (nvm + Node 24, bun, uv, graphifyy) work inside WSL Ubuntu, shown by printing their versions; section C is done, shown by `git -C ~/dev/learnhouse remote -v` listing origin Darideivi/learnhouse and upstream learnhouse/learnhouse; ~/dev/learnhouse/apps/api/.env exists with the D.1 block using placeholders only, never real keys. Do not run `npx learnhouse dev`. Anything that needs David goes into docs/OPEN_QUESTIONS.md, and docs/STATUS.md says what David must do next. Do not touch existing containers. Stop after 25 turns.
+/goal Following CLAUDE.md and docs/PHASE0_PLAN.md: section B tools (nvm + Node 24, bun, uv, graphifyy) work inside WSL Ubuntu, installed by running scripts/davidlab/setup-tools.sh (fix the script if it fails) and shown by its version printout; section C is done, shown by `git -C ~/dev/learnhouse remote -v` listing origin Darideivi/learnhouse and upstream learnhouse/learnhouse; ~/dev/learnhouse/apps/api/.env exists with the D.1 block using placeholders only, never real keys. Do not run `npx learnhouse dev`. Anything that needs David goes into docs/OPEN_QUESTIONS.md, and docs/STATUS.md says what David must do next. Do not touch existing containers. Stop after 25 turns.
 ```
 
 **Between the goals, David does by hand:** paste the real keys into `apps/api/.env`, then run `cd ~/dev/learnhouse && npx learnhouse dev` once in his own terminal (answer the two prompts) and leave it running.

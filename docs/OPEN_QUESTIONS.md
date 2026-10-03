@@ -44,7 +44,7 @@ Two-way sync is a trap.
 
 ### Q7 · Backup plan for the Postgres volume on DavidLab?
 - **Blocks:** first real content import
-- **Default:** Nightly `pg_dump` to a folder outside Docker; Claude proposes the script after Phase 0.
+- **Default:** Nightly `pg_dump` with `scripts/davidlab/backup-db.sh` (keeps 14, written 2026-10-03, untested). Add the crontab line from its header once LearnHouse runs.
 
 ### Q8 · Keep `graphify-out/` (GD Focus graph) in this repo?
 It maps a different project and was built from the work laptop.
@@ -55,6 +55,11 @@ It maps a different project and was built from the work laptop.
 On Pro, Fable runs only on usage credits. On Max, it uses weekly limits first, then credits.
 - **Blocks:** knowing whether the $100 credit is what Fable spends
 - **Default:** Follow the model routing in CLAUDE.md either way.
+
+### Q10 · Approve the Inbox design draft?
+`docs/INBOX_DESIGN.md` (written on Fable, assumes the Q1 and Q5 defaults). Its own open decisions I-1 to I-7 are listed at the end of that file.
+- **Blocks:** Inbox build (start.md Prompt 2)
+- **Default:** none. The build waits for David's OK, because it's real code in the fork.
 
 ## Answered
 

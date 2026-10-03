@@ -2,27 +2,33 @@
 
 The handoff file. Every session reads it first and updates it last, so a fresh session can continue without the old chat.
 
-**Last updated:** 2026-10-02, cloud session (Claude, Opus)
+**Last updated:** 2026-10-03 00:40, cloud session (Claude, Opus main; Fable for the Inbox design)
 
 ## Where we are
 
-Phase 0 prep is done from source reading. The LearnHouse run itself hasn't started.
+Everything that can be done without DavidLab is done. Phase 0 (running LearnHouse) is waiting on David's manual steps. The Inbox design is drafted and waiting for approval.
 
 ## Done
 
-- Read upstream `learnhouse@dev` (`5e28b07`). Drafted `ARCHITECTURE_NOTES.md`, `DECISIONS.md` (D-001 to D-006), `LEARNING_LOG.md`.
-- Corrected `PHASE0_PLAN.md` (interactive first run, AI config before first run, org settings instead of code, Alembic expectations).
-- Fixed `.env.example` (Gemini, 768 dims). Updated CLAUDE.md (DavidLab, AI choices, commands, model routing, working unattended).
-- Parked 9 decisions in `OPEN_QUESTIONS.md`.
+- Read upstream `learnhouse@dev` (`5e28b07`). Wrote `ARCHITECTURE_NOTES.md`, `DECISIONS.md` (D-001 to D-006), `LEARNING_LOG.md`.
+- Corrected `PHASE0_PLAN.md` and added two ready-to-paste `/goal`s. Goal 1 now uses `scripts/davidlab/setup-tools.sh`.
+- Fixed `.env.example`. Updated CLAUDE.md (DavidLab, AI choices, commands, model routing, working unattended).
+- `scripts/davidlab/setup-tools.sh` and `backup-db.sh` (syntax-checked, **not yet run**).
+- `docs/INBOX_DESIGN.md` drafted on Fable; key claims spot-checked against upstream source. Only upstream edit it needs: one `include_router` in `apps/api/src/router.py`.
+- Parked 10 decisions in `OPEN_QUESTIONS.md`.
 
 ## Next
 
-1. **David:** PHASE0_PLAN section A by hand (WSL Ubuntu, Docker WSL integration, Gemini key).
-2. **DavidLab session on Sonnet:** run PHASE0_PLAN B–G with the `/goal` in that file.
-3. **Short Fable session:** answer `OPEN_QUESTIONS.md` Q1–Q5, turn answers into DECISIONS entries.
-4. Inbox design (`start.md` Prompt 2), on Fable.
+1. **David, by hand:** PHASE0_PLAN section A (WSL Ubuntu, Docker WSL integration, Gemini key) and the sudo apt line (now includes `unzip`).
+2. **DavidLab, Claude Code on Sonnet, auto mode:** goal 1 from PHASE0_PLAN. Then David pastes keys and runs the first `npx learnhouse dev`. Then goal 2.
+3. **David:** answer `OPEN_QUESTIONS.md`, especially Q1, Q2, Q5 and Q10 (Inbox design approval, plus its I-1 to I-7).
+4. After approval and Phase 0: build the Inbox (start.md Prompt 2) on Sonnet, with one Fable review at the end.
 
 ## Blockers
 
-- Cloud sessions can't run LearnHouse (Docker Hub, apt and the Python 3.14.7 download are blocked).
-- Claude has push access to this repo (Claude GitHub App installed, 2026-10-03). Per CLAUDE.md, it still commits and pushes only when David asks.
+- Cloud sessions can't run LearnHouse (Docker Hub, apt and the Python 3.14.7 download are blocked). Nothing more can move here until Phase 0 runs on DavidLab or David answers the open questions.
+
+## Notes for the next session
+
+- Credit: a Fable job interrupted mid-run on 2026-10-03 spent credit without producing output. Don't interrupt Fable jobs; resume them with SendMessage instead of restarting.
+- Push access to this repo works (Claude GitHub App installed 2026-10-03).
