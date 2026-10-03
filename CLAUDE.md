@@ -252,7 +252,7 @@ uv run alembic revision --autogenerate -m "add inbox_item"
 uv run alembic upgrade head
 
 # Tests and lint
-cd apps/api && uv run pytest src/tests/ -q   # in-memory SQLite, no Postgres needed
+cd apps/api && uv run pytest src/tests/ -q   # ✅ ran 2026-10-03: 5807 passed, 15 failed, 2 errors (24 min; see STATUS.md). In-memory SQLite, no Postgres
 cd apps/api && uvx ruff check .
 cd apps/web && bun test tests
 cd apps/web && bunx eslint .                 # report-only upstream
