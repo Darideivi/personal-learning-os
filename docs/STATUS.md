@@ -24,5 +24,5 @@ Phase 0 prep is done from source reading. The LearnHouse run itself hasn't start
 
 ## Blockers
 
-- Claude can't push to `Darideivi/personal-learning-os` until the Claude GitHub App is installed on it. Until then, cloud-session changes reach the repo only as patches David applies.
 - Cloud sessions can't run LearnHouse (Docker Hub, apt and the Python 3.14.7 download are blocked).
+- Claude has push access to this repo (Claude GitHub App installed, 2026-10-03). Per CLAUDE.md, it still commits and pushes only when David asks.
