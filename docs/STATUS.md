@@ -26,6 +26,14 @@ Branch `feat/learning-inbox` in `Darideivi/learnhouse`, cut from `dev` (`5e28b07
 
 Fable review (read-only, nothing run): no blocking findings. Run-time risk for step e is Q17. Differences from the design (details in LEARNING_LOG): enum labels in Postgres are member NAMES (`YOUTUBE`, `OPEN`), not values; the shared `RequestBodyWithAuthHeader` drops the body for PATCH, so `updateInboxItem` builds its own request; the Archive filter is only reachable through the All tab (tabs are Open/Reviewed/All as specified); 
 
+### Also done in the cloud (same session, run and passing here)
+
+- `scripts/notes/check_notes.py` (answers Q15): 12 notes files, 0 problems.
+- `scripts/notes/import_inbox.py` (start.md Prompt 3, partial): parses `notes/inbox.md` into 5 items; dry run by default. `--apply` goes through the Inbox API and has **not been run** (needs the stack, a token and the branch deployed; Q18). Environment: `LEARNHOUSE_API_URL`, `LEARNHOUSE_TOKEN`, `LEARNHOUSE_ORG_ID`.
+- `scripts/notes/test_notes_scripts.py`: 8 unittest cases, all pass (`python3 scripts/notes/test_notes_scripts.py`).
+- Moved the master plan to `docs/MASTER_PLAN.md` and updated CLAUDE.md.
+- Not doable in the cloud, still open: Q13 key, browser click-through (Q14), the full pytest result, the checklist below, seeding Jeff Su/topics (needs Topic/Resource models), `FEATURE_IDEAS.md` (needs David's ideas).
+
 ### DavidLab verification checklist (in order)
 
 a. **Stop the API process first** (INBOX_DESIGN §3 hot-reload trap: `create_all` would create the table). Pull the branch (`git fetch origin && git checkout feat/learning-inbox`). From `apps/api`: `uv run alembic upgrade head`; confirm table and enum types (`\d inboxitem`, `\dT inboxitemtype inboxitemstatus` in psql). Then `uv run alembic downgrade -1` and `uv run alembic upgrade head` again. If the table already exists, the migration is a no-op: drop it and both types first (INBOX_DESIGN §3) to test for real.
@@ -64,7 +72,7 @@ g. Also worth running (not in the list): `cd apps/api && uvx ruff check src/db/i
 
 ## Next
 
-1. **David:** Q13 (Anthropic key), then the click-through list above.
+1. **David:** Q13 (Anthropic key), then the click-through list above. After the DavidLab checklist passes, run `import_inbox.py --apply`.
 2. ~~Approve the Inbox design~~ **Done 2026-10-03.** Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`). Q3, Q4, Q6, Q8 can wait.
 3. Record the pytest result here, then build the Inbox on branch `feat/learning-inbox` (start.md Prompt 2) on Sonnet, with one Fable review at the end. Follow INBOX_DESIGN §3 (stop the API before adding the model) and §8 (run only the new tests).
 

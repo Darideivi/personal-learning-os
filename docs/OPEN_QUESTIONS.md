@@ -23,20 +23,10 @@ Found 2026-10-03: the Claude-in-Chrome tab showed a connection error page for `h
 - **Blocks:** browser verification items
 - **Default:** none.
 
-### Q15 · `scripts/notes/check_notes.py` is missing
-The goal says `python3 scripts/notes/check_notes.py` should still pass, but that file is not in this repo (`scripts/` only has `davidlab/`; it is not tracked in git and CLAUDE.md never mentions it). Was it on another branch, the work laptop, or the cloud session? Also, Windows has no Python, so it would have to run inside Ubuntu.
-- **Blocks:** nothing
-- **Default:** skip the check and record it as not run.
-
-### Q16 · Inbox: show Archived items in their own tab?
-Found 2026-10-03 during the Inbox build. Archived items only show in the All tab (PATCH can now clear `url` with null, fixed after review) (tabs are Open / Reviewed / All as specified).
-- **Blocks:** nothing
-- **Default:** Leave as is for v1; revisit when the weekly review flow is built.
-
-### Q17 · Playwright global-setup may fail on the dev stack
-Review finding 2026-10-03: `apps/e2e/global-setup.ts` still logs in and creates a shared student even when `E2E_BASE_URL` is set. With signup `inviteOnly` that step may fail before the inbox spec runs. Not verified.
-- **Blocks:** checklist step e
-- **Default:** If it fails on DavidLab, send me the error; the likely fix is guarding the student creation in setup (an upstream edit) or running the spec with a one-off config.
+### Q18 · Notes importer: imported items get `source="web"`
+The importer (`scripts/notes/import_inbox.py`) goes through the existing API, which always sets `source="web"` and has no way to set `reviewed` or title/note separately beyond `text` + `note`. Idempotency therefore matches on url/title instead of `source="notes-import"` (INBOX_DESIGN §7). To tag imports properly the API would need an optional `source` on `InboxItemCreate` (a small change on the `feat/learning-inbox` branch).
+- **Blocks:** nothing (importer works without it)
+- **Default:** Keep `source="web"`; add the optional field only if the distinction proves useful.
 
 ### Q12 · Ubuntu has only `root` and no normal user. Create one?
 Found 2026-10-03: `wsl -d Ubuntu` logs in as `root` (home `/root`), so the clone is at `/root/dev/learnhouse` and the tools are under `/root`. Everything works, but running dev servers and Docker as root is poor Linux practice, and `~/dev` is not under a normal `/home/<name>`. Re-doing it later means re-running `setup-tools.sh` and re-cloning.
@@ -67,6 +57,9 @@ It maps a different project and was built from the work laptop.
 - **Default:** Leave it until David decides.
 
 ## Answered
+
+### Q15 · `scripts/notes/check_notes.py` is missing
+**Answer (2026-10-03, cloud session):** Wrote it (`scripts/notes/check_notes.py`, stdlib only) with tests; it passes on the 12 current notes files.
 
 ### Q10 · Approve the Inbox design draft?
 **Answer (2026-10-03):** Approved with four amendments (migration hot-reload trap, run only the new tests while building, URL and length validation, E2E env vars; plus the menu-replace note). Defaults I-1 to I-7 all accepted. Design is now ready to build; see `docs/INBOX_DESIGN.md`.
