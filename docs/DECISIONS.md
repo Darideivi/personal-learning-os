@@ -108,6 +108,10 @@ Recorded here because they live in the database (D-004). **Applied 2026-10-03 on
 | Podcasts, Boards, Playgrounds | leave off (default) | Their pages and menu links |
 | `menu.items` | Courses, Library (others off) | Top menu clutter |
 
+## Inbox: item endpoints skip the org-session hook (2026-10-03)
+
+`GET/PATCH/DELETE /inbox/{uuid}` check only `user_id` ownership, not `require_org_membership`, so `enforce_org_mfa` (org session policy) is not applied to them; create and list do apply it. Why: ownership already makes items private (404 for others, no existence leak) and the hook is a no-op under the default config. Revisit when: multi-user (Phase 6) or an org MFA policy is turned on.
+
 ## Phase 1 code tasks (only if still visible after the settings above)
 
 To be filled in during Phase 0 exploration: certificates page, hub / billing / new-organization routes, explore or marketing pages, member and invite screens.

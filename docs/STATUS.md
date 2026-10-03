@@ -10,7 +10,7 @@ LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis 
 
 ## Inbox build (cloud session, 2026-10-03): written, NOT verified
 
-Branch `feat/learning-inbox` in `Darideivi/learnhouse`, cut from `dev` (`5e28b07`). Last commit: `2161beb`. Pushed to the fork only; no PR. The only edit to an existing upstream file is `apps/api/src/router.py` (one import and one `include_router`).
+Branch `feat/learning-inbox` in `Darideivi/learnhouse`, cut from `dev` (`5e28b07`). Last commit: `75771f7` (after the Fable review: PATCH can clear `url`, tab test ids so the E2E selector is unambiguous, unused prop removed). Pushed to the fork only; no PR. The only edit to an existing upstream file is `apps/api/src/router.py` (one import and one `include_router`).
 
 **Nothing was run** except one thing: the `detect_type` logic and its 13 test cases were checked in isolation under the sandbox's Python 3.11 (13/13 matched), outside pytest. No pytest, Alembic, ruff, tsc or Playwright run happened here. All of it needs DavidLab.
 
@@ -24,7 +24,7 @@ Branch `feat/learning-inbox` in `Darideivi/learnhouse`, cut from `dev` (`5e28b07
 | 6 | E2E | `apps/e2e/features/inbox/tests/capture.spec.ts`; uses `ADMIN_STATE` from global-setup, so credentials come only from env vars. |
 | 7 | Migration | `e7a1c4d9b2f0_add_inbox_item.py`, `down_revision = b1c2d3e4f5a6` (single head, found by following the chain). Idempotent guard; downgrade drops table and both enum types. |
 
-Differences from the design (details in LEARNING_LOG): enum labels in Postgres are member NAMES (`YOUTUBE`, `OPEN`), not values; the shared `RequestBodyWithAuthHeader` drops the body for PATCH, so `updateInboxItem` builds its own request; the Archive filter is only reachable through the All tab (tabs are Open/Reviewed/All as specified); a PATCH cannot clear `url` (null is ignored).
+Fable review (read-only, nothing run): no blocking findings. Run-time risk for step e is Q17. Differences from the design (details in LEARNING_LOG): enum labels in Postgres are member NAMES (`YOUTUBE`, `OPEN`), not values; the shared `RequestBodyWithAuthHeader` drops the body for PATCH, so `updateInboxItem` builds its own request; the Archive filter is only reachable through the All tab (tabs are Open/Reviewed/All as specified); 
 
 ### DavidLab verification checklist (in order)
 

@@ -28,10 +28,15 @@ The goal says `python3 scripts/notes/check_notes.py` should still pass, but that
 - **Blocks:** nothing
 - **Default:** skip the check and record it as not run.
 
-### Q16 · Inbox: let PATCH clear `url`, and show Archived items?
-Found 2026-10-03 during the Inbox build. v1 ignores `null` in PATCH, so a `url` cannot be removed once set, and archived items only show in the All tab (tabs are Open / Reviewed / All as specified).
+### Q16 · Inbox: show Archived items in their own tab?
+Found 2026-10-03 during the Inbox build. Archived items only show in the All tab (PATCH can now clear `url` with null, fixed after review) (tabs are Open / Reviewed / All as specified).
 - **Blocks:** nothing
 - **Default:** Leave as is for v1; revisit when the weekly review flow is built.
+
+### Q17 · Playwright global-setup may fail on the dev stack
+Review finding 2026-10-03: `apps/e2e/global-setup.ts` still logs in and creates a shared student even when `E2E_BASE_URL` is set. With signup `inviteOnly` that step may fail before the inbox spec runs. Not verified.
+- **Blocks:** checklist step e
+- **Default:** If it fails on DavidLab, send me the error; the likely fix is guarding the student creation in setup (an upstream edit) or running the spec with a one-off config.
 
 ### Q12 · Ubuntu has only `root` and no normal user. Create one?
 Found 2026-10-03: `wsl -d Ubuntu` logs in as `root` (home `/root`), so the clone is at `/root/dev/learnhouse` and the tools are under `/root`. Everything works, but running dev servers and Docker as root is poor Linux practice, and `~/dev` is not under a normal `/home/<name>`. Re-doing it later means re-running `setup-tools.sh` and re-cloning.
