@@ -41,7 +41,7 @@ LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis 
 ## Next
 
 1. **David:** Q13 (Anthropic key), then the click-through list above.
-2. ~~Approve the Inbox design~~ **Done 2026-10-03.** Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`). Q3, Q4, Q6, Q8 can wait.
+2. ~~Approve the Inbox design~~ **Done 2026-10-03.** Later: Phase 1.5 "access from anywhere" (Q16). Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`). Q3, Q4, Q6, Q8 can wait.
 3. Pytest result is recorded above. Build the Inbox on branch `feat/learning-inbox` (start.md Prompt 2) on Sonnet, with one Fable review at the end. Follow INBOX_DESIGN §3 (stop the API before adding the model) and §8 (run only the new tests).
 
 ## Blockers

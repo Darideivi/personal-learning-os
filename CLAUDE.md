@@ -215,6 +215,7 @@ Requirements on DavidLab (inside Ubuntu): Docker Desktop with WSL integration, N
 
 - **Phase 0. Understand LearnHouse**: run it, explore the UI, map web/API/DB, course/activity models, auth, AI and RAG. Write `docs/ARCHITECTURE_NOTES.md`. No major changes.
 - **Phase 1. Personal experience**: **Learning Inbox first**, then dashboard, learning domains, projects, resource library, personal notes and navigation.
+- **Phase 1.5. Access from anywhere** (after the Inbox works; plan in OPEN_QUESTIONS Q16): reach the app from phone and laptop without exposing a dev server. Prerequisites: production-style run (not `learnhouse dev`) with real secrets, the nightly backup (Q7), domain and URL config for web/API/collab (collab needs websockets). Access: Tailscale (private, nothing public; recommended first) or a Cloudflare Tunnel hostname plus Cloudflare Access. DavidLab already runs `cloudflared` for n8n. Never expose the dev stack.
 - **Phase 2. Capture**: YouTube ingestion and transcripts, AI summaries, concept extraction, GitHub resources, Markdown notes, tagging.
 - **Phase 3. Connected knowledge**: topics, relationships, projects/resources ↔ topics, graph view, roadmaps, better search.
 - **Phase 4. Learning intelligence**: AI tutor, RAG over personal content, quizzes, active recall, spaced repetition, mastery, recommendations.

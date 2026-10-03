@@ -28,6 +28,11 @@ The goal says `python3 scripts/notes/check_notes.py` should still pass, but that
 - **Blocks:** nothing
 - **Default:** skip the check and record it as not run.
 
+### Q16 · How do I reach the app from anywhere? (Phase 1.5)
+Today LearnHouse is only on DavidLab (`localhost:3000`). To use it from phone or laptop: **Tailscale** (private VPN, nothing public, about 15 minutes; recommended first) or a **Cloudflare Tunnel hostname + Cloudflare Access** (normal URL, login in front of the site; DavidLab already runs `cloudflared` for n8n). Either way, do these first: a production-style run instead of `npx learnhouse dev` (dev defaults and the known collab key must never be public), real secrets, the nightly backup (Q7), domain and URL config for web, API and collab (websockets), and a plan for keeping DavidLab and WSL awake and running. Existing homelab containers must not be touched by the setup.
+- **Blocks:** nothing until the Inbox works
+- **Default:** Tailscale first; revisit Cloudflare Access if you want a public-looking URL.
+
 ### Q12 · Ubuntu has only `root` and no normal user. Create one?
 Found 2026-10-03: `wsl -d Ubuntu` logs in as `root` (home `/root`), so the clone is at `/root/dev/learnhouse` and the tools are under `/root`. Everything works, but running dev servers and Docker as root is poor Linux practice, and `~/dev` is not under a normal `/home/<name>`. Re-doing it later means re-running `setup-tools.sh` and re-cloning.
 - **Blocks:** nothing now
