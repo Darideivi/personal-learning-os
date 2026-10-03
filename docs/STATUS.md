@@ -2,7 +2,7 @@
 
 The handoff file. Every session reads it first and updates it last, so a fresh session can continue without the old chat.
 
-**Last updated:** 2026-10-03, DavidLab session (Claude, Sonnet, goal 1)
+**Last updated:** 2026-10-03, cloud session (Claude, Sonnet): everything doable without DavidLab
 
 ## Where we are
 
@@ -24,14 +24,21 @@ Everything that can be done without DavidLab is done. Phase 0 (running LearnHous
 - `apps/api/.env` created with the D.1 block, placeholders only (`LEARNHOUSE_AI_API_KEY=<anthropic-key>`). It is gitignored. Ollama and `nomic-embed-text` were already present in Ubuntu.
 - Nothing committed or pushed. Existing containers untouched. `npx learnhouse dev` not run.
 
+## Done in the cloud session (2026-10-03, after goal 1)
+
+- Moved the master plan to `docs/MASTER_PLAN.md` and fixed the CLAUDE.md references.
+- Added `scripts/notes/` (stdlib only): `check_notes.py` lints `notes/` (frontmatter, status enums, dangling topic links, broken links); `notes_lib.py` holds the frontmatter parser, `detect_type()` and `parse_inbox_line()` that mirror INBOX_DESIGN §6–7, so it is the reference for the future importer. Tests: `cd scripts/notes && python3 -m unittest -q` (6 pass).
+- Lint result: 0 errors, 5 warnings. Five topics are referenced but have no file (`docker`, `fastapi`, `nextjs`, `postgresql`, `apis`). Parked as Q13, because topic files must hold David's own words.
+- All 5 `notes/inbox.md` lines parse into InboxItem fields.
+- Wrote `docs/FEATURE_IDEAS.md` (parked ideas, none approved).
+
 ## Next
 
-1. **David, by hand:** enable Docker WSL integration for Ubuntu (OPEN_QUESTIONS Q11). Without it `npx learnhouse dev` can't start Postgres/Redis.
-2. **David:** open `apps/api/.env` (`! wsl -d Ubuntu nano ~/dev/learnhouse/apps/api/.env`), replace `<anthropic-key>` with the real key, then in his own Ubuntu terminal run `cd ~/dev/learnhouse && npx learnhouse dev` (answer yes to dev defaults, set admin email/password) and leave it running. First run takes several minutes.
+1. **David, by hand:** enable Docker WSL integration for Ubuntu (Q11). Without it `npx learnhouse dev` can't start Postgres/Redis.
+2. **David:** put the real key in `apps/api/.env` (`! wsl -d Ubuntu nano ~/dev/learnhouse/apps/api/.env`), then in his own Ubuntu terminal run `cd ~/dev/learnhouse && npx learnhouse dev` (yes to dev defaults, set admin email/password) and leave it running.
 3. **Then** run goal 2 from PHASE0_PLAN on Sonnet in auto mode.
-4. Commit the `.gitattributes` + script fixes in this repo when David says so (currently uncommitted).
-3. **David:** approve `docs/INBOX_DESIGN.md` (OPEN_QUESTIONS Q10, plus its I-1 to I-7). Q3, Q4, Q6, Q8 can wait.
-4. After approval and Phase 0: build the Inbox (start.md Prompt 2) on Sonnet, with one Fable review at the end.
+4. **David:** approve `docs/INBOX_DESIGN.md` (Q10, I-1 to I-7; the defaults are the recommendation). Q3, Q4, Q6, Q8, Q13 can wait.
+5. After approval and Phase 0: build the Inbox (start.md Prompt 2) on Sonnet, with one Fable review at the end. Port `scripts/notes/notes_lib.py` rules into the importer.
 
 ## Blockers
 

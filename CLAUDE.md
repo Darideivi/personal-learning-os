@@ -259,6 +259,10 @@ cd apps/web && bunx eslint .                 # report-only upstream
 cd apps/web && bunx next typegen && bunx tsc --noEmit
 scripts/lockfiles.sh                         # after touching package.json or pyproject.toml
 
+# Notes knowledge base (this repo)
+python3 scripts/notes/check_notes.py                 # lint notes/ frontmatter and links
+cd scripts/notes && python3 -m unittest -q           # parser tests
+
 # Code map
 graphify .            # then query graphify-out/ instead of grepping
 ```
@@ -267,7 +271,7 @@ graphify .            # then query graphify-out/ instead of grepping
 
 | File | Purpose |
 |---|---|
-| `LEARNHOUSE_PERSONAL_LEARNING_OS_MASTER_PLAN.md` | Detailed vision, features, phases and data model. The deep reference behind this file. Moves to `docs/MASTER_PLAN.md` in the repo. |
+| `docs/MASTER_PLAN.md` | Detailed vision, features, phases and data model. The deep reference behind this file. |
 | `notes/` | **My live knowledge base (markdown)**: `inbox.md`, `plan.md`, `topics/`, `resources/`, `projects/`, `journal/`. Every file has YAML frontmatter (`type`, `status`, `topics`, …) designed for the app to import later. Read `notes/README.md` for the conventions. |
 | `notes/resources/ai-skills-core-10.md` | Claude Code skills shortlist (reference, not rules). |
 | `notes/resources/youtube-jeff-su-ai-agents-clearly-explained.md` | AI fundamentals from Jeff Su's video. Seeds the AI topics in `notes/topics/`. |
@@ -289,6 +293,6 @@ graphify .            # then query graphify-out/ instead of grepping
 - `ai-skills-core-10.md` is the **"AI Skills" reference collection**: 10 resources (GitHub repos), each linked to the topic Agent Skills.
 Seed them when the Inbox ships. Keep my wording; AI may add structure, never replace my notes.
 
-Still planned under `docs/`: `MASTER_PLAN.md` (move from the root), `FEATURE_IDEAS.md`.
+Still planned under `docs/`: `FEATURE_IDEAS.md`.
 
 When this file and the master plan disagree, **this file wins**. Update this file when a decision changes.

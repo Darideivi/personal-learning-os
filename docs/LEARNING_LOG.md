@@ -43,3 +43,11 @@ The cloud session could clone GitHub but couldn't pull Docker Hub images, instal
 ### CRLF vs LF line endings (infrastructure)
 Git for Windows checked `setup-tools.sh` out with CRLF endings (`core.autocrlf=true`). Bash then read `\r` as part of each line and failed with `$'\r': command not found` and `set: pipefail: invalid option name`. Fix: `.gitattributes` with `*.sh text eol=lf` forces LF on every checkout, whatever the machine's git config.
 **Study next:** `.gitattributes` and `core.autocrlf`, how to spot hidden carriage returns (`file script.sh`, `cat -A`).
+
+### Regex greediness when parsing text (Python)
+The first inbox parser used `https?://\S+` for URLs, which also swallowed the `:` in `https://x.com/a: description`, so the URL and title came out wrong. A unit test on the real `notes/inbox.md` lines caught it. Fix: end the match on a character that is not punctuation, `[^\s.,;:)]`.
+**Study next:** greedy vs lazy quantifiers, `re` named groups, and why tests built from real data find bugs that invented examples miss.
+
+### Lint your own data
+`scripts/notes/check_notes.py` treats markdown frontmatter like a schema: required fields, allowed enum values, and foreign keys (topics referenced by other files must exist). Same idea as database constraints, applied to files, and it finds problems before an importer does.
+**Study next:** JSON Schema, Pydantic validation, referential integrity in PostgreSQL.

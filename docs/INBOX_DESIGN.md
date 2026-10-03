@@ -179,6 +179,8 @@ Importer is a later session (start.md Prompt 3). The model must already fit the 
 | `(moved to resources/public-apis.md)` | stays inside `note` in v1; a later pass turns it into a Resource link |
 | everything | `source="notes-import"`, `user_id` = admin, `org_id` = the single org |
 
+Reference implementation of this mapping (with tests, run against the real `notes/inbox.md`): `scripts/notes/notes_lib.py::parse_inbox_line`. Plain `URL: description` lines give `title = url`, `note = description`.
+
 Idempotency: skip a line when an item with the same `url` (or same `title` when no URL) and `source="notes-import"` already exists. One-way (Q5 default): the importer never writes back to markdown. The `topics/`, `resources/`, `projects/` frontmatter files are **not** Inbox items; they wait for the `Resource` and `Topic` models.
 
 ## 8. Tests

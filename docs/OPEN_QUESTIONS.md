@@ -23,6 +23,11 @@ Found 2026-10-03: `wsl -d Ubuntu` logs in as `root` (home `/root`), so the clone
 - **Blocks:** nothing now
 - **Default:** Keep root for Phase 0, since it already works. Revisit if file-permission or Docker-socket problems appear.
 
+### Q13 · Create topic files for `docker`, `fastapi`, `nextjs`, `postgresql`, `apis`?
+`python3 scripts/notes/check_notes.py` warns that `projects/personal-learning-os.md` and `resources/public-apis.md` reference these topics, which have no file in `notes/topics/`. Topic files should hold David's own explanation, so Claude does not write them.
+- **Blocks:** nothing (warnings only). The importer would create empty topic stubs or skip the links.
+- **Default:** Leave as is. David copies `notes/topics/_template.md` when he first studies each one; or the importer creates stub topics from the references.
+
 ### Q3 · Is a saved YouTube video a course activity or a standalone Resource?
 Upstream already has `SUBTYPE_VIDEO_YOUTUBE` activities inside courses.
 - **Blocks:** Phase 2 YouTube ingestion
