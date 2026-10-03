@@ -63,3 +63,7 @@ The Phase 0 plan listed `features.communities.enabled` and `menu.items`. The sto
 ### Slow test suites and piped output (infrastructure)
 `uv run pytest src/tests/ -q | tail` prints nothing until the whole suite ends. On the i5-6500T the API suite (323 test files) ran for a long time at ~95% CPU. For long runs, write to a log file with `tee` so progress is visible.
 **Study next:** pytest `-x`, `--durations`, `-p no:cacheprovider`, running a subset by marker.
+
+### Tests that read your real `.env` (infrastructure)
+2026-10-03: the full API suite gave 15 failed, 5807 passed. At least one failure (`test_model_for_tier_defaults`) fails only because `apps/api/.env` sets `LEARNHOUSE_AI_*` and the settings loader reads the file during tests, so "defaults" are no longer defaults. Others call a real local Ollama and want a model that isn't pulled (`qwen2.5:3b`). A suite that depends on the developer's machine state is not hermetic.
+**Study next:** hermetic tests, `monkeypatch.delenv`, pytest-env, `env -u VAR`, and why CI runs with a clean environment. A good habit: compare failures against a clean baseline before blaming your own change.

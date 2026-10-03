@@ -207,7 +207,7 @@ Idempotency: skip a line when an item with the same `url` (or same `title` when 
 
 `src/tests/services/test_inbox_detect_type.py`: a parametrized table for the §6 rules, including `youtu.be`, uppercase hosts and a `.PDF` suffix.
 
-**Amended 2026-10-03: run only the new tests while building.** The full API suite is very slow on DavidLab (5,836 tests; a first run went 22+ minutes at ~95% CPU on the i5-6500T with no result, 2026-10-03). In the build loop run just the Inbox tests, with output to a log so progress is visible:
+**Amended 2026-10-03: run only the new tests while building.** The full API suite is very slow on DavidLab (5,836 tests; the full run takes about 24.5 minutes on the i5-6500T, 2026-10-03). In the build loop run just the Inbox tests, with output to a log so progress is visible:
 
 ```bash
 cd apps/api && uv run pytest src/tests/routers/test_inbox_router.py src/tests/services/test_inbox_detect_type.py -q 2>&1 | tee /tmp/inbox-tests.log

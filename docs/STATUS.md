@@ -19,7 +19,11 @@ LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis 
 
 ## Failing or not verified
 
-- **`uv run pytest src/tests/ -q`**: started 2026-10-03, first run went 22+ minutes at ~95% CPU with no output (piped through `tail`), so it was stopped. 5,836 tests collect in 7 s. A second run with a log (`/root/pytest-run.log` in Ubuntu) was in progress at the end of the session; its result is **not yet recorded**.
+- **`uv run pytest src/tests/ -q` (run 2026-10-03, DavidLab, 24 min 29 s): 5807 passed, 15 failed, 2 errors, 21 skipped** (5,836 collected). Log: `/root/pytest-run.log` in Ubuntu. No upstream code was edited, but this is not a clean-baseline comparison (the same tests were not run on an unmodified checkout or an empty `.env`). Causes:
+  - **Confirmed, environment leak:** `test_llm_provider::test_model_for_tier_defaults` expects `gemini-3.1-flash-lite` but got `claude-haiku-4-5-20251001`, because our `apps/api/.env` sets `LEARNHOUSE_AI_*` and the tests read it.
+  - **Likely, same family:** 5 `test_llm_features_ollama` tests plus the boards and playgrounds stream tests: `ask_ai_stream failed: 404, model 'qwen2.5:3b' not found`. Ollama is running locally now, but only `nomic-embed-text` is pulled, and the tests expect `qwen2.5:3b`.
+  - **Unconfirmed:** `test_active_users::test_ee_records` (expected HTTPException, we run OSS mode), `test_auth` and `test_security_all` stale-token naive-datetime tests, 2 `test_account_lockout_service` tests (naive `locked_until`), and 2 setup errors in `test_root_router.py`.
+  - Next step: rerun just these 17 with the `LEARNHOUSE_*` vars cleared from the environment (`env -u` or a temporary empty `.env`) and compare. Do not treat the suite as green until then. For the Inbox build, run only the Inbox tests (INBOX_DESIGN section 8).
 - **AI panel / embeddings rows**: not checked. `LEARNHOUSE_AI_API_KEY` is still the placeholder (Q13).
 - **Browser checks**: Chrome (Claude in Chrome) showed a connection error page for `http://localhost:3000/login` twice, although PowerShell gets 200 (Q14).
 - **`python3 scripts/notes/check_notes.py`**: the file doesn't exist in this repo (Q15), so it was not run.
@@ -38,7 +42,7 @@ LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis 
 
 1. **David:** Q13 (Anthropic key), then the click-through list above.
 2. ~~Approve the Inbox design~~ **Done 2026-10-03.** Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`). Q3, Q4, Q6, Q8 can wait.
-3. Record the pytest result here, then build the Inbox on branch `feat/learning-inbox` (start.md Prompt 2) on Sonnet, with one Fable review at the end. Follow INBOX_DESIGN §3 (stop the API before adding the model) and §8 (run only the new tests).
+3. Pytest result is recorded above. Build the Inbox on branch `feat/learning-inbox` (start.md Prompt 2) on Sonnet, with one Fable review at the end. Follow INBOX_DESIGN §3 (stop the API before adding the model) and §8 (run only the new tests).
 
 ## Blockers
 
