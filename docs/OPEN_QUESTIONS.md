@@ -13,6 +13,16 @@ How to answer: write the answer under the question (a line is enough), then move
 
 ## Waiting for David
 
+### Q11 · Docker is not reachable from WSL Ubuntu. Enable the integration?
+Found 2026-10-03: `docker info` fails inside Ubuntu, so Docker Desktop's WSL integration is off for it. Needs a GUI click: Docker Desktop → Settings → Resources → WSL integration → enable **Ubuntu** → Apply & restart. Check with `wsl -d Ubuntu -- docker ps` (should list n8n, Jellyfin, etc.).
+- **Blocks:** the first `npx learnhouse dev` (it starts Postgres + Redis containers)
+- **Default:** none. Needs David.
+
+### Q12 · Ubuntu has only `root` and no normal user. Create one?
+Found 2026-10-03: `wsl -d Ubuntu` logs in as `root` (home `/root`), so the clone is at `/root/dev/learnhouse` and the tools are under `/root`. Everything works, but running dev servers and Docker as root is poor Linux practice, and `~/dev` is not under a normal `/home/<name>`. Re-doing it later means re-running `setup-tools.sh` and re-cloning.
+- **Blocks:** nothing now
+- **Default:** Keep root for Phase 0, since it already works. Revisit if file-permission or Docker-socket problems appear.
+
 ### Q3 · Is a saved YouTube video a course activity or a standalone Resource?
 Upstream already has `SUBTYPE_VIDEO_YOUTUBE` activities inside courses.
 - **Blocks:** Phase 2 YouTube ingestion

@@ -39,3 +39,7 @@ Org features (communities, podcasts, signup mode, menu) live in a JSON column on
 ### Cloud sandbox limits (infrastructure)
 The cloud session could clone GitHub but couldn't pull Docker Hub images, install `postgresql-16-pgvector` from apt, or download Python 3.14.7 through `uv`. A network allowlist blocks them. Phase 0 runs on DavidLab for that reason.
 **Study next:** egress allowlists and proxies, a common security control in corporate networks.
+
+### CRLF vs LF line endings (infrastructure)
+Git for Windows checked `setup-tools.sh` out with CRLF endings (`core.autocrlf=true`). Bash then read `\r` as part of each line and failed with `$'\r': command not found` and `set: pipefail: invalid option name`. Fix: `.gitattributes` with `*.sh text eol=lf` forces LF on every checkout, whatever the machine's git config.
+**Study next:** `.gitattributes` and `core.autocrlf`, how to spot hidden carriage returns (`file script.sh`, `cat -A`).

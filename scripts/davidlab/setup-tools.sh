@@ -30,13 +30,15 @@ if [ -n "$missing" ]; then
 fi
 echo "git, curl, build-essential: ok"
 
+DOCKER_OK=1
 if ! docker info >/dev/null 2>&1; then
-  echo "Docker is not reachable from WSL." >&2
+  DOCKER_OK=0
+  echo "WARNING: Docker is not reachable from WSL (not needed for these tools, but needed to run LearnHouse)." >&2
   echo "Fix: start Docker Desktop, then Settings > Resources > WSL integration," >&2
-  echo "enable 'Ubuntu', click 'Apply & restart', and re-run this script." >&2
-  exit 1
+  echo "enable 'Ubuntu', click 'Apply & restart'." >&2
+else
+  echo "docker: ok"
 fi
-echo "docker: ok"
 
 # ---- 2. Node via nvm -------------------------------------------------------
 step "Node $NODE_MAJOR via nvm"
@@ -95,8 +97,12 @@ if command -v graphify >/dev/null; then
 else
   echo "graphify: not on PATH (open a new shell, or check 'uv tool list')"
 fi
-echo "docker:  $(docker --version)"
-echo "compose: $(docker compose version)"
+if [ "$DOCKER_OK" = 1 ]; then
+  echo "docker:  $(docker --version)"
+  echo "compose: $(docker compose version)"
+else
+  echo "docker:  NOT reachable from WSL (enable WSL integration)"
+fi
 
 echo
 echo "Done. New shells pick up nvm/bun/uv automatically; in THIS shell run:"
