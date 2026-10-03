@@ -76,3 +76,7 @@ The Phase 0 plan listed `features.communities.enabled` and `menu.items`. The sto
 ### Tests that read your real `.env` (infrastructure)
 2026-10-03: the full API suite gave 15 failed, 5807 passed. At least one failure (`test_model_for_tier_defaults`) fails only because `apps/api/.env` sets `LEARNHOUSE_AI_*` and the settings loader reads the file during tests, so "defaults" are no longer defaults. Others call a real local Ollama and want a model that isn't pulled (`qwen2.5:3b`). A suite that depends on the developer's machine state is not hermetic.
 **Study next:** hermetic tests, `monkeypatch.delenv`, pytest-env, `env -u VAR`, and why CI runs with a clean environment. A good habit: compare failures against a clean baseline before blaming your own change.
+
+### Single-tenant URLs and invite-only vs the test harness (infrastructure)
+2026-10-03: with `LEARNHOUSE_TENANCY=single` the app serves pages at `/library`, `/courses`, `/inbox`; the `/orgs/<slug>/...` form 404s (including for upstream's own pages), so a spec or link built on `/orgs/default/...` breaks. Also, the e2e harness's global-setup creates a student via public signup, which our invite-only setting correctly rejects with 403. Security settings you hardened will fight tools that assume an open signup; know which setting a failure points at before "fixing" the code.
+**Study next:** Next.js middleware/rewrites (`proxy.ts`), multi-tenant routing, test fixtures that create users through admin APIs instead of public signup.

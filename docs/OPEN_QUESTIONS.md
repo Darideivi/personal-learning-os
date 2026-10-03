@@ -23,6 +23,17 @@ Found 2026-10-03: the Claude-in-Chrome tab showed a connection error page for `h
 - **Blocks:** browser verification items
 - **Default:** none.
 
+### Q17 · Inbox Playwright spec fails in global-setup because the org is invite-only
+Found 2026-10-03 on DavidLab: `POST /users/1 -> 403 "You need an invite to join this organization"` (`core/client.ts` `createStudent`, called from `global-setup.ts:116`). The e2e harness creates a student through public signup, and we set `signup_mode=inviteOnly` (INBOX_DESIGN and DECISIONS). The Inbox spec only needs the admin, but global-setup always creates the student first. I did not edit upstream files.
+- **Options:** (a) temporarily set signup to `open` through the API, run `bunx playwright test features/inbox`, set it back to `inviteOnly` (about 5 minutes, fully reversible, I can do it); (b) run the Inbox spec with a tiny local playwright config that skips the shared student setup (new file in our spec folder, no upstream edit); (c) skip e2e for now.
+- **Blocks:** step e of the Inbox verification
+- **Default:** (a), but only on David's OK, since it briefly changes an org security setting.
+
+### Q19 · Inbox spec opens `/orgs/default/inbox`, which 404s on the dev stack
+In this single-tenant dev stack every `/orgs/default/*` path returns 404 (Library, Courses and Inbox alike); the working paths are `/library`, `/courses`, `/inbox`. `capture.spec.ts` line 18 uses `/orgs/${ORG_SLUG}/inbox`, so it will fail at `page.goto` once Q17 is solved. The fix is one line in our own spec (`page.goto('/inbox')`). Other upstream specs navigate with `/` and `/login`, never `/orgs/<slug>/...`.
+- **Blocks:** step e
+- **Default:** change the spec to `/inbox` on the next session and commit it to `feat/learning-inbox` as a separate commit.
+
 ### Q18 · Notes importer: imported items get `source="web"`
 The importer (`scripts/notes/import_inbox.py`) goes through the existing API, which always sets `source="web"` and has no way to set `reviewed` or title/note separately beyond `text` + `note`. Idempotency therefore matches on url/title instead of `source="notes-import"` (INBOX_DESIGN §7). To tag imports properly the API would need an optional `source` on `InboxItemCreate` (a small change on the `feat/learning-inbox` branch).
 - **Blocks:** nothing (importer works without it)

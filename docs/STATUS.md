@@ -2,17 +2,34 @@
 
 The handoff file. Every session reads it first and updates it last, so a fresh session can continue without the old chat.
 
-**Last updated:** 2026-10-03, cloud session (Claude, Sonnet, Inbox build)
+**Last updated:** 2026-10-03, DavidLab session (Claude, Sonnet, Inbox verification)
 
 ## Where we are
 
-LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis healthy). Phase 0 checks are done except the ones that need a browser or the Anthropic key. The **Inbox design is APPROVED** (Q10, 2026-10-03, with four amendments); the Inbox build is the next code session.
+LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis healthy) with the `feat/learning-inbox` branch deployed. The Inbox is **verified at the database and API level** (steps a, b, c, d, g, h below), the notes importer has loaded the 5 seed items, and the one thing left is the **Playwright run (step e)**, blocked by Q17. Browser-visual checks still need David (Q14).
 
-## Inbox build (cloud session, 2026-10-03): written, NOT verified
+## Inbox verification on DavidLab (2026-10-03, goal run)
+
+Full command-by-command log: `/tmp/inbox-verify.md` in Ubuntu. Fork branch `feat/learning-inbox`, last commit `75771f7`. **No fixes were needed, so no new commits on the fork.** Nothing was pushed. The Inbox URL in this single-tenant dev stack is **`http://localhost:3000/inbox`** (`/orgs/default/*` returns 404 for every page, including the built-in Library).
+
+| Step | What | Result |
+|---|---|---|
+| a | Stop API only, checkout branch, `alembic upgrade head`, check table and enums, `downgrade -1`, `upgrade head` again | **PASS.** `b1c2d3e4f5a6 -> e7a1c4d9b2f0 (head)`. Table `inboxitem` with 4 indexes and FKs (org, user, CASCADE). Enum labels are uppercase names: `inboxitemtype` YOUTUBE, ARTICLE, GITHUB, PDF, COURSE, DOCS, IDEA, LAB, PROJECT, NOTE, COMMAND; `inboxitemstatus` OPEN, REVIEWED, ARCHIVED. Downgrade left 0 tables and 0 types; upgrade recreated them. The hot-reload trap did not occur (table was absent before upgrade). |
+| b | The two Inbox test files | **PASS.** 24 passed in 5.4 s. |
+| c | Restart API, endpoint and flow checks | **PASS (API level; browser by curl fallback, Q14).** `GET /inbox/org/1` returned 200 and `[]`. Captured `reviewed` (type note) and a youtu.be link (type youtube, title `great intro`), marked it reviewed (`reviewed_date` set), it moved from Open to Reviewed. `javascript:` URL on PATCH and empty text on POST both returned 422. No token returned 401. `/inbox` page returns 200. Chrome still cannot open localhost (even with `[::1]`), so the visual row/icon check is on David's list. |
+| d | Inbox menu link | **PASS (config).** Sent the whole list with the custom item first. Read back: Inbox (custom, `/inbox`, Lightbulb) at order 0, then Courses, Library, and the disabled Podcasts, Communities, Playgrounds, Store. The menu renders client-side, so seeing it in the top bar needs the browser. |
+| e | Playwright `features/inbox` | **FAIL, blocked by Q17 (not an Inbox bug).** `Error: POST /users/1 -> 403: {"detail":"You need an invite to join this organization"}` at `core/client.ts:37` via `createStudent` (global-setup.ts:116). global-setup creates a student through public signup and we set the org to inviteOnly. No upstream file edited. The spec never ran. A second problem is expected after that: the spec opens `/orgs/default/inbox`, which 404s here (Q19). Playwright and Chromium are now installed in `apps/e2e`. |
+| f | Full API suite in the background | **Started** (pid 51190), log `/tmp/full-api-tests.log`, about 25 minutes. Not waited on. First full run (before the Inbox branch): see Failing section. |
+| g | ruff and tsc | **PASS with notes.** `next typegen` OK and `tsc --noEmit` found 0 errors in the whole web app. `ruff check` on the three Inbox folders reports 40 style findings (UP045 x19, B008 x10, UP006 x5, UP035 x3, DTZ005 x3), all auto-fixable style rules and no correctness (E/F) findings. Upstream's own `folders` layers show 95 findings of the same kinds, so the Inbox code matches repo conventions. Not changed. |
+| h | Notes scripts and importer | **PASS.** `check_notes.py`: 12 files, 0 problems. `test_notes_scripts.py`: 8 tests OK. Dry run parsed 5 items. I first deleted my two step-c test items, then `--apply`: **run 1 created 5, skipped 0; run 2 created 0, skipped 5.** The list now holds 5 items (index-0.in as article, claude-mem as note, 3 github). Token came from the login API through env vars only. |
+
+Items created by the importer have `source="web"` (Q18), and URL-only items use the URL as the title with the description in `note`.
+
+## Inbox build (cloud session, 2026-10-03): written, now verified above
 
 Branch `feat/learning-inbox` in `Darideivi/learnhouse`, cut from `dev` (`5e28b07`). Last commit: `75771f7` (after the Fable review: PATCH can clear `url`, tab test ids so the E2E selector is unambiguous, unused prop removed). Pushed to the fork only; no PR. The only edit to an existing upstream file is `apps/api/src/router.py` (one import and one `include_router`).
 
-**Nothing was run** except one thing: the `detect_type` logic and its 13 test cases were checked in isolation under the sandbox's Python 3.11 (13/13 matched), outside pytest. No pytest, Alembic, ruff, tsc or Playwright run happened here. All of it needs DavidLab.
+In the cloud nothing was run except the `detect_type` logic (13/13 under Python 3.11, outside pytest). Everything else was verified on DavidLab; see the table above.
 
 | # | Deliverable | Built |
 |---|---|---|
@@ -34,7 +51,7 @@ Fable review (read-only, nothing run): no blocking findings. Run-time risk for s
 - Moved the master plan to `docs/MASTER_PLAN.md` and updated CLAUDE.md.
 - Not doable in the cloud, still open: Q13 key, browser click-through (Q14), the full pytest result, the checklist below, seeding Jeff Su/topics (needs Topic/Resource models), `FEATURE_IDEAS.md` (needs David's ideas).
 
-### DavidLab verification checklist (in order)
+### DavidLab verification checklist (original; executed 2026-10-03, results in the table above)
 
 a. **Stop the API process first** (INBOX_DESIGN §3 hot-reload trap: `create_all` would create the table). Pull the branch (`git fetch origin && git checkout feat/learning-inbox`). From `apps/api`: `uv run alembic upgrade head`; confirm table and enum types (`\d inboxitem`, `\dT inboxitemtype inboxitemstatus` in psql). Then `uv run alembic downgrade -1` and `uv run alembic upgrade head` again. If the table already exists, the migration is a no-op: drop it and both types first (INBOX_DESIGN §3) to test for real.
 b. `cd apps/api && uv run pytest src/tests/routers/test_inbox_router.py src/tests/services/test_inbox_detect_type.py -q 2>&1 | tee /tmp/inbox-tests.log`
@@ -62,8 +79,9 @@ g. Also worth running (not in the list): `cd apps/api && uvx ruff check src/db/i
   - Next step: rerun just these 17 with the `LEARNHOUSE_*` vars cleared from the environment (`env -u` or a temporary empty `.env`) and compare. Do not treat the suite as green until then. For the Inbox build, run only the Inbox tests (INBOX_DESIGN section 8).
 - **AI panel / embeddings rows**: not checked. `LEARNHOUSE_AI_API_KEY` is still the placeholder (Q13).
 - **Browser checks**: Chrome (Claude in Chrome) showed a connection error page for `http://localhost:3000/login` twice, although PowerShell gets 200 (Q14).
-- **`python3 scripts/notes/check_notes.py`**: the file doesn't exist in this repo (Q15), so it was not run.
-- Not run: `npx learnhouse status|logs|doctor|health`, web tests, ruff, eslint, tsc, `git fetch upstream`.
+- **Inbox Playwright spec (step e)**: blocked, see the verification table and Q17, Q19.
+- **`python3 scripts/notes/check_notes.py`**: now exists (cloud session) and passes: 12 files, 0 problems.
+- Not run: `npx learnhouse status|logs|doctor|health`, web tests (`bun test`), eslint, `git fetch upstream`. The 17-test rerun with `LEARNHOUSE_*` cleared (above) is still to do.
 
 ## Click-through list for David (browser)
 
@@ -76,9 +94,10 @@ g. Also worth running (not in the list): `cd apps/api && uvx ruff check src/db/i
 
 ## Next
 
-1. **David:** Q13 (Anthropic key), then the click-through list above. After the DavidLab checklist passes, run `import_inbox.py --apply`.
-2. ~~Approve the Inbox design~~ **Done 2026-10-03.** Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`). Q3, Q4, Q6, Q8 can wait.
-3. Pytest result is recorded above. Build the Inbox on branch `feat/learning-inbox` (start.md Prompt 2) on Sonnet, with one Fable review at the end. Follow INBOX_DESIGN §3 (stop the API before adding the model) and §8 (run only the new tests).
+1. **David, decide Q17** (how to run the Inbox Playwright spec against an invite-only org) and **Q19** (the spec path `/orgs/default/inbox` 404s here; the working path is `/inbox`). Then I rerun step e.
+2. **David:** browser click-through (Q14, list above) including seeing the Inbox link in the top menu and the 5 imported items at `http://localhost:3000/inbox`. Q13 (Anthropic key) for the AI panel.
+3. Rerun the 17 failing upstream tests with the `LEARNHOUSE_*` variables cleared and compare (see the Failing section); check `/tmp/full-api-tests.log` for the full-suite run that includes the Inbox tests.
+4. Review and merge: the cloud docs branch (`claude/great-heisenberg-l3lppf`) plus this verification merge are on branch `inbox-verify` (local only, not pushed). The other cloud branch `claude/amazing-mccarthy-up5uzr` is an older parallel attempt (notes linter, FEATURE_IDEAS) based before the build brief; decide which to keep. Optional: Q7 backup cron, Q3, Q4, Q6, Q8.
 
 ## Blockers
 
