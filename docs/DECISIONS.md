@@ -21,7 +21,7 @@ Status: **Accepted** (decided and in effect) · **Proposed** (drafted, waiting f
 
 | | |
 |---|---|
-| Status | Accepted · 2026-10-02 |
+| Status | Chat part accepted · embeddings part **superseded by D-006** on 2026-10-03 |
 | Decision | `LEARNHOUSE_AI_PROVIDER=anthropic`, embeddings through Google (`gemini-embedding-001`, 768 dims) via `LEARNHOUSE_GEMINI_API_KEY`. |
 | Why | Anthropic has no embeddings API. Upstream's OpenAI embeddings path reuses `LEARNHOUSE_AI_API_KEY` (the Anthropic key), so Anthropic + OpenAI would need a code patch. Upstream already falls back to Google for Anthropic. The pgvector column is `Vector(768)`, which Gemini matches natively. Gemini has a free tier. |
 | Alternatives | OpenAI embeddings (needs a patch). Ollama `nomic-embed-text` on the homelab (free, local, also 768 dims; see Proposed D-006). |
@@ -65,12 +65,34 @@ Status: **Accepted** (decided and in effect) · **Proposed** (drafted, waiting f
 
 | | |
 |---|---|
-| Status | **Proposed** · 2026-10-02 |
-| Decision | Once Ollama runs on DavidLab, switch embeddings to `LEARNHOUSE_AI_EMBEDDING_PROVIDER=ollama` (`nomic-embed-text`, 768 dims). Keep Anthropic for chat. |
+| Status | Accepted · 2026-10-03 (David). Use from the first run; no Gemini phase. |
+| Decision | Install Ollama inside WSL Ubuntu on DavidLab; embeddings use `LEARNHOUSE_AI_EMBEDDING_PROVIDER=ollama` (`nomic-embed-text`, 768 dims). Keep Anthropic for chat. |
 | Why | Personal notes stay on the homelab, embeddings cost nothing, and it matches the "local AI option" in CLAUDE.md. Same 768 dims, so no migration. |
 | Alternatives | Stay on Gemini (D-002). |
 | Trade-offs | Needs Ollama running whenever content is saved or searched. Switching requires re-indexing. Quality of local embeddings vs Gemini is unmeasured. Decide **before** much content exists, because every switch means a full re-embed. |
 | Revisit when | Ollama is installed, or before the first large content import. |
+
+## D-007 · Personal knowledge lives in new models, not courses
+
+| | |
+|---|---|
+| Status | Accepted · 2026-10-03 (David, OPEN_QUESTIONS Q1) |
+| Decision | Inbox items, resources and topics get their own tables (`InboxItem` first). Courses stay courses. |
+| Why | Notes, links and topics don't have a course shape. Forcing them into Course → Chapter → Activity would bend upstream concepts and break the "first-class learning objects" principle. |
+| Alternatives | Store everything as courses/activities and reuse course RAG as-is. |
+| Trade-offs | Upstream RAG is course-scoped, so RAG over personal content needs its own embedding table or a generalised one (Phase 4 design). |
+| Revisit when | Phase 4 RAG design. |
+
+## D-008 · The app database is the source of truth after a one-way import
+
+| | |
+|---|---|
+| Status | Accepted · 2026-10-03 (David, OPEN_QUESTIONS Q5) |
+| Decision | `notes/` markdown is imported once (idempotently) into the app. After that, edits happen in the app; `notes/` becomes an archive. |
+| Why | Two-way sync between files and a database is complex and error-prone. One source of truth keeps it simple. |
+| Alternatives | Markdown as master with repeated re-imports (app edits would be overwritten). |
+| Trade-offs | Notes are no longer plain files in git. Needs the Postgres backup (`scripts/davidlab/backup-db.sh`) and, later, a markdown export. |
+| Revisit when | A markdown export feature is planned. |
 
 ## Org settings to apply after the first run
 

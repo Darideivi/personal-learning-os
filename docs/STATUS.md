@@ -2,7 +2,7 @@
 
 The handoff file. Every session reads it first and updates it last, so a fresh session can continue without the old chat.
 
-**Last updated:** 2026-10-03 00:40, cloud session (Claude, Opus main; Fable for the Inbox design)
+**Last updated:** 2026-10-03 00:45, cloud session (Claude, Opus main; Fable for the Inbox design)
 
 ## Where we are
 
@@ -15,13 +15,13 @@ Everything that can be done without DavidLab is done. Phase 0 (running LearnHous
 - Fixed `.env.example`. Updated CLAUDE.md (DavidLab, AI choices, commands, model routing, working unattended).
 - `scripts/davidlab/setup-tools.sh` and `backup-db.sh` (syntax-checked, **not yet run**).
 - `docs/INBOX_DESIGN.md` drafted on Fable; key claims spot-checked against upstream source. Only upstream edit it needs: one `include_router` in `apps/api/src/router.py`.
-- Parked 10 decisions in `OPEN_QUESTIONS.md`.
+- David answered Q1, Q2, Q5, Q9: new models (D-007), Ollama embeddings from the first run (D-006), database is the source of truth after a one-way import (D-008), Pro plan (Fable spends only usage credits). Plans and `.env.example` switched from Gemini to Ollama.
 
 ## Next
 
-1. **David, by hand:** PHASE0_PLAN section A (WSL Ubuntu, Docker WSL integration, Gemini key) and the sudo apt line (now includes `unzip`).
+1. **David, by hand:** PHASE0_PLAN section A (WSL Ubuntu, Docker WSL integration, Ollama inside WSL + `ollama pull nomic-embed-text`) and the sudo apt line (includes `unzip`).
 2. **DavidLab, Claude Code on Sonnet, auto mode:** goal 1 from PHASE0_PLAN. Then David pastes keys and runs the first `npx learnhouse dev`. Then goal 2.
-3. **David:** answer `OPEN_QUESTIONS.md`, especially Q1, Q2, Q5 and Q10 (Inbox design approval, plus its I-1 to I-7).
+3. **David:** approve `docs/INBOX_DESIGN.md` (OPEN_QUESTIONS Q10, plus its I-1 to I-7). Q3, Q4, Q6, Q8 can wait.
 4. After approval and Phase 0: build the Inbox (start.md Prompt 2) on Sonnet, with one Fable review at the end.
 
 ## Blockers

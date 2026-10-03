@@ -87,7 +87,7 @@ The Personal Learning OS is a fork of LearnHouse that will become a capture → 
 
 1. In a Windows terminal: `wsl --install -d Ubuntu`. Set a UNIX username and password when prompted.
 2. Docker Desktop → Settings → Resources → WSL integration → enable **Ubuntu** → Apply & restart.
-3. Get a Gemini API key at aistudio.google.com (free). Have the Anthropic key handy.
+3. Install Ollama **inside WSL Ubuntu** (`curl -fsSL https://ollama.com/install.sh | sh`, needs sudo), then `ollama pull nomic-embed-text`. Embeddings run locally (D-006). Have the Anthropic key handy. No Gemini key needed.
 
 Claude checks 1 and 2 with `wsl -l -v` and `wsl -d Ubuntu -- docker ps` before continuing.
 
@@ -126,11 +126,11 @@ Claude checks 1 and 2 with `wsl -l -v` and `wsl -d Ubuntu -- docker ps` before c
    LEARNHOUSE_AI_MODEL_FAST=claude-haiku-4-5-20251001
    LEARNHOUSE_AI_MODEL_STANDARD=claude-sonnet-5-5
    LEARNHOUSE_AI_MODEL_PRO=claude-opus-5-5
-   LEARNHOUSE_AI_EMBEDDING_PROVIDER=google
-   LEARNHOUSE_AI_EMBEDDING_MODEL=gemini-embedding-001
+   LEARNHOUSE_AI_EMBEDDING_PROVIDER=ollama
+   LEARNHOUSE_AI_EMBEDDING_MODEL=nomic-embed-text
    LEARNHOUSE_AI_EMBEDDING_DIMENSIONS=768
-   LEARNHOUSE_GEMINI_API_KEY=<gemini-key>
    ```
+   Ollama defaults to `http://localhost:11434/v1`, which the API reaches when Ollama runs in the same WSL distro. Anthropic chat ignores `LEARNHOUSE_AI_BASE_URL`, so leave it unset (set it only if Ollama lives elsewhere).
    No `LEARNHOUSE_DEVELOPMENT_MODE` (the CLI sets it) and no `NEXT_PUBLIC_LEARNHOUSE_MULTI_ORG` (web ignores it).
 2. **David runs the first `npx learnhouse dev` himself** in his own Ubuntu terminal: `cd ~/dev/learnhouse && npx learnhouse dev`. It asks two interactive questions that hang if Claude runs it in the background: "Apply dev defaults?" (answer yes) and admin email + password. Typing the password at the prompt keeps it out of shell history and `ps`. First run installs dependencies (several minutes). Claude follows along with `npx learnhouse status`, `logs` and `health`.
 3. After the API restarts with the keys, check the startup log for `pgvector extension not available` (should not appear) and that AI is enabled.
@@ -163,7 +163,7 @@ Only what is **still visible after that** (likely certificates, hub/billing/new-
 - `wsl -d Ubuntu -- docker ps` shows `learnhouse-db-dev` and `learnhouse-redis-dev` healthy; n8n, Jellyfin, cloudflared and nginx are untouched.
 - `curl http://localhost:1338/` returns `{"Message":"Welcome to LearnHouse ✨"}`. `http://localhost:3000` loads from Windows.
 - Log in as admin in Chrome, create a course and an activity, open the editor (collab websocket on 4000 connects).
-- AI panel generates text through Anthropic. Embeddings work once the Gemini key is in.
+- AI panel generates text through Anthropic. `curl http://localhost:11434/api/tags` lists `nomic-embed-text`, and saving an activity creates rows in `course_embedding` (embeddings via Ollama).
 - `cd apps/api && uv run alembic current` runs and shows **no revision** (expected: the schema came from `create_all`). Do **not** stamp yet; that's the first step of the Inbox session.
 - `cd apps/api && uv run pytest src/tests/ -x -q` runs (in-memory SQLite, no Postgres needed). Record the pass/fail count.
 - All documents in F and G exist, and CLAUDE.md's commands are the ones actually used.

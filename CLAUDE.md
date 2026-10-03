@@ -138,7 +138,7 @@ A professional developer tool, in the spirit of **Linear, Vercel, GitHub, Notion
 # AI / RAG Direction
 
 - **Reuse LearnHouse's AI layer first** (provider-agnostic LLM layer, Pydantic AI, LlamaIndex, pgvector RAG). Investigate how it works before extending it.
-- Providers are configured through `LEARNHOUSE_AI_*` env vars. Current choice: **Anthropic for chat, Google Gemini for embeddings** (`gemini-embedding-001`, **768 dims** to match the `Vector(768)` column; Anthropic has no embeddings API and upstream falls back to Gemini). Ollama embeddings are a proposed alternative (D-006). Never hard-code a provider into a custom feature.
+- Providers are configured through `LEARNHOUSE_AI_*` env vars. Current choice: **Anthropic for chat, Ollama on DavidLab for embeddings** (`nomic-embed-text`, **768 dims** to match the `Vector(768)` column; D-006). Notes never leave the homelab. Anthropic has no embeddings API; Gemini is the upstream fallback if Ollama is ever dropped. Switching embedding models means re-embedding everything. Never hard-code a provider into a custom feature.
 - Upstream RAG is **course-scoped** (`CourseEmbedding.course_id` is required). RAG over notes, Inbox items or topics needs a design decision in Phase 4.
 - The tutor (later) does RAG over my notes, videos/transcripts, courses, projects and docs. It uses learner context (current focus, known/weak topics, projects, goals) to explain new things through what I already know (e.g. Kubernetes through Docker).
 - Pipeline: content → chunking → embeddings → pgvector → retrieval → tutor. No separate vector DB.

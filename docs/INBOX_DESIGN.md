@@ -1,6 +1,6 @@
 # Personal Learning Inbox: Design
 
-**Status: Draft. Assumes `OPEN_QUESTIONS.md` defaults Q1 (Inbox is a new model, not a course) and Q5 (one-way import from `notes/` markdown). Needs David's approval before `/ecc:feature-dev`.**
+**Status: Draft. Q1 and Q5 confirmed by David on 2026-10-03 (D-007: new model, not a course; D-008: one-way import, database is the source of truth). Needs David's approval (OPEN_QUESTIONS Q10) before `/ecc:feature-dev`.**
 
 | | |
 |---|---|
