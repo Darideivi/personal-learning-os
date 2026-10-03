@@ -19,7 +19,7 @@ LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis 
 
 ## Failing or not verified
 
-- **`uv run pytest src/tests/ -q`**: started 2026-10-03, ran for 30+ minutes at ~95% CPU with no output (piped through `tail`). Result is **not yet recorded**; see the update line at the bottom of this section if present.
+- **`uv run pytest src/tests/ -q`**: started 2026-10-03, first run went 22+ minutes at ~95% CPU with no output (piped through `tail`), so it was stopped. 5,836 tests collect in 7 s. A second run with a log (`/root/pytest-run.log` in Ubuntu) was in progress at the end of the session; its result is **not yet recorded**.
 - **AI panel / embeddings rows**: not checked. `LEARNHOUSE_AI_API_KEY` is still the placeholder (Q13).
 - **Browser checks**: Chrome (Claude in Chrome) showed a connection error page for `http://localhost:3000/login` twice, although PowerShell gets 200 (Q14).
 - **`python3 scripts/notes/check_notes.py`**: the file doesn't exist in this repo (Q15), so it was not run.
