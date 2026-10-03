@@ -1,13 +1,35 @@
 {
+  "enabledPlugins": {
+    "ecc@ecc": true,
+    "ponytail@ponytail": true,
+    "frontend-design@claude-plugins-official": true,
+    "impeccable@impeccable": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true
+  },
   "extraKnownMarketplaces": {
     "ecc": {
       "source": {
         "source": "git",
         "url": "https://github.com/affaan-m/ECC.git"
       }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "impeccable": {
+      "source": {
+        "source": "github",
+        "repo": "pbakaus/impeccable"
+      }
+    },
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      }
     }
-  },
-  "enabledPlugins": {
-    "ecc@ecc": true
   }
 }
