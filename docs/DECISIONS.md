@@ -98,6 +98,8 @@ Status: **Accepted** (decided and in effect) · **Proposed** (drafted, waiting f
 
 Recorded here because they live in the database (D-004). **Applied 2026-10-03 on DavidLab through the API** (admin login, org `default`, id 1) and read back from `GET /orgs/slug/default`: signup `inviteOnly`, auth methods `["password"]`, communities off, menu = Courses + Library (podcasts, communities, playgrounds, store disabled). The exact dashboard screen names are not confirmed yet (browser click-through is on David's list in STATUS.md). Exact API calls and stored paths are in ARCHITECTURE_NOTES section 7. A fresh install needs these re-applied, since they live in the database and not in git.
 
+**Inbox nav (planned, INBOX_DESIGN §6):** the menu PUT replaces the whole list, so adding the Inbox link means resending Courses, Library, the disabled built-ins and a `custom` item (`label` Inbox, `url` `/inbox`, `icon` Lightbulb).
+
 | Setting | Value | Hides |
 |---|---|---|
 | `admin_toggles.members.signup_mode` | `inviteOnly` | Public signup |

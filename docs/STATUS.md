@@ -6,7 +6,7 @@ The handoff file. Every session reads it first and updates it last, so a fresh s
 
 ## Where we are
 
-LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis healthy). Phase 0 checks are done except the ones that need a browser or the Anthropic key. The Inbox design is drafted and waiting for approval (Q10).
+LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis healthy). Phase 0 checks are done except the ones that need a browser or the Anthropic key. The **Inbox design is APPROVED** (Q10, 2026-10-03, with four amendments); the Inbox build is the next code session.
 
 ## Done in goal 2 (2026-10-03)
 
@@ -37,8 +37,8 @@ LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis 
 ## Next
 
 1. **David:** Q13 (Anthropic key), then the click-through list above.
-2. **David:** approve `docs/INBOX_DESIGN.md` (Q10, plus I-1 to I-7). Q3, Q4, Q6, Q8 can wait. Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`).
-3. Record the pytest result here, then build the Inbox (start.md Prompt 2) on Sonnet with one Fable review at the end.
+2. ~~Approve the Inbox design~~ **Done 2026-10-03.** Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`). Q3, Q4, Q6, Q8 can wait.
+3. Record the pytest result here, then build the Inbox on branch `feat/learning-inbox` (start.md Prompt 2) on Sonnet, with one Fable review at the end. Follow INBOX_DESIGN §3 (stop the API before adding the model) and §8 (run only the new tests).
 
 ## Blockers
 

@@ -1,6 +1,6 @@
 # Personal Learning Inbox: Design
 
-**Status: Draft. Q1 and Q5 confirmed by David on 2026-10-03 (D-007: new model, not a course; D-008: one-way import, database is the source of truth). Needs David's approval (OPEN_QUESTIONS Q10) before `/ecc:feature-dev`.**
+**Status: APPROVED by David on 2026-10-03 (OPEN_QUESTIONS Q10), with the four amendments marked "Amended 2026-10-03" below, and all defaults I-1 to I-7 accepted. Q1 and Q5 confirmed the same day (D-007: new model, not a course; D-008: one-way import, database is the source of truth). Ready for the build session (`/ecc:feature-dev`, Sonnet).**
 
 | | |
 |---|---|
@@ -93,6 +93,8 @@ uv run alembic revision --autogenerate -m "add inbox_item"
 uv run alembic upgrade head
 ```
 
+**Amended 2026-10-03: the hot-reload trap.** In dev the API reloads on every file save and runs `create_all` on startup. The moment `inbox_items.py` is saved, the running API creates the `inboxitem` table itself. Then `alembic revision --autogenerate` finds no diff, or `alembic upgrade head` fails with "table already exists". So generate the migration with the table absent: **stop the API first** (type `q` in the dev window, or stop only the `[api]` process), add the model file, run `autogenerate` and read the migration, and only then restart the API. If the table already exists, drop it (`DROP TABLE inboxitem; DROP TYPE inboxitemtype; DROP TYPE inboxitemstatus;`) before `upgrade head`, or point `autogenerate` at a throwaway empty database. Record the exact order that worked in `LEARNING_LOG.md`.
+
 Fresh-DB check (required because `create_all` hides a missing migration): drop the `learnhouse-db-dev` volume, start with the model present, run `alembic stamp head` minus one revision, then `upgrade head`, and confirm `inboxitem` exists. Record the exact step order in `LEARNING_LOG.md`. Downgrade must drop the table and both enum types.
 
 ## 4. API
@@ -112,6 +114,13 @@ Auth and permission checks, copied from `src/services/folders/folders.py::create
 1. Router-level `require_authenticated_user` (`src/router.py`) rejects anonymous and API-token users.
 2. In the service, `await require_org_membership(resolve_acting_user_id(current_user), org_id, db_session)` (`src/security/org_auth.py`, `src/security/auth.py`). The org id comes from the body or path, exactly the case the folders docstring warns about, so it is gated explicitly.
 3. Ownership: every query adds `InboxItem.user_id == user_id`. Items of another user in the same org return 404, not 403 (don't reveal existence). No `check_resource_access` call: `inbox_` is unknown to `check_element_type`, and the item is private to one user, so role-based RBAC adds nothing in v1. Written down so the security review knows it was a choice.
+
+**Amended 2026-10-03: input validation.** The list renders `url` as a clickable link, so a bad URL is a stored-link risk (`javascript:` etc.).
+
+- `InboxItemCreate` and `InboxItemUpdate` accept only `http://` or `https://` for `url` (reject anything else with 422), including on `PATCH`. Auto-detection on create already picks only `http(s)` tokens; the update path must enforce the same rule.
+- Empty or whitespace-only `text` on create returns 422. `title` must be non-empty after trimming on update.
+- Length limits: `text` and `title` at most 500 characters, `note` at most 10,000, `url` at most 2,048 (422 beyond).
+- The web side renders `url` as a link only when it starts with `http://` or `https://`.
 
 Not in v1: webhooks (`dispatch_webhooks`), analytics, `ResourceAuthor` rows.
 
@@ -164,7 +173,7 @@ Deliberately avoided: `src/security/rbac/utils.py::check_element_type` (not need
 
 **List**: rows, not cards. Each row: type icon (phosphor), title (link when `url` is set, `target="_blank"`), note in muted text, relative date, and two actions: **Reviewed** (PATCH `status=reviewed`) and a kebab with Edit / Archive / Delete. Filter tabs `Open · Reviewed · All`. Empty state: one line.
 
-**Nav entry, zero upstream UI edits**: `OrgMenuLinks.tsx` already renders `type: "custom"` items from `OrganizationConfig.menu.items` (`MenuLinkItem` in `src/db/organization_config.py`), and a relative `url` goes through `getUriWithOrg(orgslug, url)`, so `{type: "custom", label: "Inbox", url: "/inbox", icon: "Lightbulb", order: 0}` puts Inbox in the top menu. It is set from Dashboard → Organization → Menu (`components/Dashboard/Pages/Org/OrgEditMenu/OrgEditMenu.tsx`) and recorded in `DECISIONS.md` under "Org settings to apply". `Lightbulb` is the closest icon in the curated `MENU_ICONS` set (`components/Objects/Menus/menuIcons.tsx`); there is no tray icon. Phase 1's larger nav (Dashboard · Learn · Knowledge …) is when a real menu edit is justified, not now.
+**Nav entry, zero upstream UI edits**: `OrgMenuLinks.tsx` already renders `type: "custom"` items from `OrganizationConfig.menu.items` (`MenuLinkItem` in `src/db/organization_config.py`), and a relative `url` goes through `getUriWithOrg(orgslug, url)`, so `{type: "custom", label: "Inbox", url: "/inbox", icon: "Lightbulb", order: 0}` puts Inbox in the top menu. It is set from Dashboard → Organization → Menu (`components/Dashboard/Pages/Org/OrgEditMenu/OrgEditMenu.tsx`) and recorded in `DECISIONS.md` under "Org settings to apply". **Amended 2026-10-03:** the org menu was already set to an explicit list on 2026-10-03 (Courses + Library, others disabled). `PUT /orgs/{id}/config/menu` **replaces the whole list**, so adding Inbox means sending the full list again with the custom item added (send `Courses`, `Library`, the disabled built-ins, plus `{"type":"custom","enabled":true,"order":0,"label":"Inbox","url":"/inbox","icon":"Lightbulb"}`). `Lightbulb` is the closest icon in the curated `MENU_ICONS` set (`components/Objects/Menus/menuIcons.tsx`); there is no tray icon. Phase 1's larger nav (Dashboard · Learn · Knowledge …) is when a real menu edit is justified, not now.
 
 ## 7. Seeding from `notes/inbox.md`
 
@@ -194,9 +203,19 @@ Idempotency: skip a line when an item with the same `url` (or same `title` when 
 7. delete then GET → 404.
 8. `other_org` → 403 on create and list.
 
+9. **(Amended)** validation: `PATCH` with `url="javascript:alert(1)"` → 422; `POST` with empty text → 422; over-length `title`/`note`/`url` → 422.
+
 `src/tests/services/test_inbox_detect_type.py`: a parametrized table for the §6 rules, including `youtu.be`, uppercase hosts and a `.PDF` suffix.
 
-**Playwright** (`apps/e2e/features/inbox/tests/capture.spec.ts`, `test` from `core/fixtures.ts`, `storageState` = the admin session, pointed at the dev stack with `E2E_BASE_URL=http://localhost:3000` so no self-host boot): log in → open `/inbox` → paste a YouTube URL + a word → Enter → row appears with the YouTube icon → click **Reviewed** → row leaves the Open tab and appears under Reviewed. That is the whole "capture → list → mark reviewed" flow from Prompt 2. ⏳ confirm during the build that `E2E_SKIP_BOOT` works against `npx learnhouse dev` (ARCHITECTURE_NOTES §8 open item).
+**Amended 2026-10-03: run only the new tests while building.** The full API suite is very slow on DavidLab (more than 40 minutes at ~95% CPU on the i5-6500T, 2026-10-03). In the build loop run just the Inbox tests, with output to a log so progress is visible:
+
+```bash
+cd apps/api && uv run pytest src/tests/routers/test_inbox_router.py src/tests/services/test_inbox_detect_type.py -q 2>&1 | tee /tmp/inbox-tests.log
+```
+
+Run the full suite once at the end (in the background, with `tee`), and record the result.
+
+**Playwright** (`apps/e2e/features/inbox/tests/capture.spec.ts`, `test` from `core/fixtures.ts`, `storageState` = the admin session, pointed at the dev stack so no self-host boot; **Amended:** setting `E2E_BASE_URL` is what skips the boot (`apps/e2e/core/instance.ts`; there is no `E2E_SKIP_BOOT`). Run with `E2E_BASE_URL=http://localhost:3000 E2E_ADMIN_EMAIL=admin@school.dev E2E_ADMIN_PASSWORD=<from /root/dev/learnhouse/.learnhouse/admin-credentials.txt>`; the harness defaults (port 8080, password `E2eTestAdmin!234`) do not match our dev stack. Never write the real password into a file in the repo): log in → open `/inbox` → paste a YouTube URL + a word → Enter → row appears with the YouTube icon → click **Reviewed** → row leaves the Open tab and appears under Reviewed. That is the whole "capture → list → mark reviewed" flow from Prompt 2. Still to confirm during the build: that the spec's login flow works against the dev stack with these env vars.
 
 ## 9. Open decisions for David
 

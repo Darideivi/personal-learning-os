@@ -56,12 +56,10 @@ It maps a different project and was built from the work laptop.
 - **Blocks:** nothing
 - **Default:** Leave it until David decides.
 
-### Q10 · Approve the Inbox design draft?
-`docs/INBOX_DESIGN.md` (written on Fable, assumes the Q1 and Q5 defaults). Its own open decisions I-1 to I-7 are listed at the end of that file.
-- **Blocks:** Inbox build (start.md Prompt 2)
-- **Default:** none. The build waits for David's OK, because it's real code in the fork.
-
 ## Answered
+
+### Q10 · Approve the Inbox design draft?
+**Answer (2026-10-03):** Approved with four amendments (migration hot-reload trap, run only the new tests while building, URL and length validation, E2E env vars; plus the menu-replace note). Defaults I-1 to I-7 all accepted. Design is now ready to build; see `docs/INBOX_DESIGN.md`.
 
 ### Q11 · Docker is not reachable from WSL Ubuntu. Enable the integration?
 **Answer (2026-10-03):** Done. `docker ps` in Ubuntu lists n8n, Jellyfin, cloudflared and nginx, and the LearnHouse DB and Redis containers came up.
