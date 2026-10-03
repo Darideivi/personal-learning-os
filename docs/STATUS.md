@@ -2,11 +2,39 @@
 
 The handoff file. Every session reads it first and updates it last, so a fresh session can continue without the old chat.
 
-**Last updated:** 2026-10-03, DavidLab session (Claude, Sonnet, goal 2)
+**Last updated:** 2026-10-03, cloud session (Claude, Sonnet, Inbox build)
 
 ## Where we are
 
 LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis healthy). Phase 0 checks are done except the ones that need a browser or the Anthropic key. The **Inbox design is APPROVED** (Q10, 2026-10-03, with four amendments); the Inbox build is the next code session.
+
+## Inbox build (cloud session, 2026-10-03): written, NOT verified
+
+Branch `feat/learning-inbox` in `Darideivi/learnhouse`, cut from `dev` (`5e28b07`). Last commit: `2161beb`. Pushed to the fork only; no PR. The only edit to an existing upstream file is `apps/api/src/router.py` (one import and one `include_router`).
+
+**Nothing was run** except one thing: the `detect_type` logic and its 13 test cases were checked in isolation under the sandbox's Python 3.11 (13/13 matched), outside pytest. No pytest, Alembic, ruff, tsc or Playwright run happened here. All of it needs DavidLab.
+
+| # | Deliverable | Built |
+|---|---|---|
+| 1 | `src/db/inbox/inbox_items.py` | `InboxItem`, `InboxItemType`/`InboxItemStatus`, Create/Update/Read, composite index, `inbox_` uuid, str dates, `source`, `reviewed_date`. Validators for URL (http/https), blank text/title, length limits. |
+| 2 | `src/services/inbox/inbox.py` | create, list (status, paging, newest first), get, patch (sets/clears `reviewed_date`), delete, `detect_type()`. Every query filters on `user_id`; `require_org_membership(resolve_acting_user_id(...))` on create and list. |
+| 3 | `src/routers/inbox/inbox.py` + `router.py` | Five routes, mounted at `/inbox` with `require_authenticated_user`. |
+| 4 | Tests | `test_inbox_router.py` (cases 1-9 incl. unpatched `other_org` 403) and `test_inbox_detect_type.py` (parametrized). |
+| 5 | Web | `services/inbox/inbox.ts`, `inbox/page.tsx`, `InboxClient.tsx`, `inbox-list.tsx`. No upstream UI edits, no new deps. |
+| 6 | E2E | `apps/e2e/features/inbox/tests/capture.spec.ts`; uses `ADMIN_STATE` from global-setup, so credentials come only from env vars. |
+| 7 | Migration | `e7a1c4d9b2f0_add_inbox_item.py`, `down_revision = b1c2d3e4f5a6` (single head, found by following the chain). Idempotent guard; downgrade drops table and both enum types. |
+
+Differences from the design (details in LEARNING_LOG): enum labels in Postgres are member NAMES (`YOUTUBE`, `OPEN`), not values; the shared `RequestBodyWithAuthHeader` drops the body for PATCH, so `updateInboxItem` builds its own request; the Archive filter is only reachable through the All tab (tabs are Open/Reviewed/All as specified); a PATCH cannot clear `url` (null is ignored).
+
+### DavidLab verification checklist (in order)
+
+a. **Stop the API process first** (INBOX_DESIGN §3 hot-reload trap: `create_all` would create the table). Pull the branch (`git fetch origin && git checkout feat/learning-inbox`). From `apps/api`: `uv run alembic upgrade head`; confirm table and enum types (`\d inboxitem`, `\dT inboxitemtype inboxitemstatus` in psql). Then `uv run alembic downgrade -1` and `uv run alembic upgrade head` again. If the table already exists, the migration is a no-op: drop it and both types first (INBOX_DESIGN §3) to test for real.
+b. `cd apps/api && uv run pytest src/tests/routers/test_inbox_router.py src/tests/services/test_inbox_detect_type.py -q 2>&1 | tee /tmp/inbox-tests.log`
+c. Restart API and web. In the browser at `/orgs/default/inbox` type "reviewed" and capture a YouTube URL; mark it reviewed.
+d. Add the Inbox menu link by resending the whole menu list with the custom item (INBOX_DESIGN §6 amendment: Courses, Library, the disabled built-ins, plus `{"type":"custom","enabled":true,"order":0,"label":"Inbox","url":"/inbox","icon":"Lightbulb"}`).
+e. `cd apps/e2e && E2E_BASE_URL=http://localhost:3000 E2E_ADMIN_EMAIL=admin@school.dev E2E_ADMIN_PASSWORD=<from admin-credentials.txt> bunx playwright test features/inbox`
+f. Full API suite once, in the background: `cd apps/api && nohup uv run pytest src/tests/ -q > /tmp/full-api-tests.log 2>&1 &`
+g. Also worth running (not in the list): `cd apps/api && uvx ruff check src/db/inbox src/services/inbox src/routers/inbox`, and `cd apps/web && bunx next typegen && bunx tsc --noEmit`.
 
 ## Done in goal 2 (2026-10-03)
 

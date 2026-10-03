@@ -63,3 +63,12 @@ The Phase 0 plan listed `features.communities.enabled` and `menu.items`. The sto
 ### Slow test suites and piped output (infrastructure)
 `uv run pytest src/tests/ -q | tail` prints nothing until the whole suite ends. On the i5-6500T the API suite (323 test files) ran for a long time at ~95% CPU. For long runs, write to a log file with `tee` so progress is visible.
 **Study next:** pytest `-x`, `--durations`, `-p no:cacheprovider`, running a subset by marker.
+
+## 2026-10-03 · Inbox build: where the real source differs from the design
+
+- **Enum labels are names, not values.** SQLAlchemy stores a Python `Enum` by member NAME. So the Postgres types hold `YOUTUBE`, `OPEN`, ... while the JSON API still returns `youtube`, `open`. The hand-written migration uses the uppercase names (same as upstream's `solutionrevealenum`). To study: SQLAlchemy `Enum(values_callable=...)`.
+- **`RequestBodyWithAuthHeader` has no body for PATCH.** `apps/web/services/utils/ts/requests.ts` only attaches the body for POST/PUT/DELETE, so `inbox.ts` builds its own PATCH `fetch`. Upstream never uses PATCH from the web.
+- **Migration enum pattern.** To reference an existing Postgres enum in `op.create_table`, use `postgresql.ENUM(..., create_type=False)` and create the type yourself with `checkfirst=True`; a plain `sa.Enum` would try `CREATE TYPE` again.
+- **Alembic head by graph, not filename.** Filenames are random; the head is the one revision no other file lists as `down_revision` (`b1c2d3e4f5a6` here). Some upstream docstrings mention old multi-head trees; the current tree has one head.
+- **Pydantic validators on SQLModel non-table classes** (`field_validator`) give the 422s for free; table models skip validation, which is why the rules live on Create/Update only.
+

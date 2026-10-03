@@ -28,6 +28,11 @@ The goal says `python3 scripts/notes/check_notes.py` should still pass, but that
 - **Blocks:** nothing
 - **Default:** skip the check and record it as not run.
 
+### Q16 · Inbox: let PATCH clear `url`, and show Archived items?
+Found 2026-10-03 during the Inbox build. v1 ignores `null` in PATCH, so a `url` cannot be removed once set, and archived items only show in the All tab (tabs are Open / Reviewed / All as specified).
+- **Blocks:** nothing
+- **Default:** Leave as is for v1; revisit when the weekly review flow is built.
+
 ### Q12 · Ubuntu has only `root` and no normal user. Create one?
 Found 2026-10-03: `wsl -d Ubuntu` logs in as `root` (home `/root`), so the clone is at `/root/dev/learnhouse` and the tools are under `/root`. Everything works, but running dev servers and Docker as root is poor Linux practice, and `~/dev` is not under a normal `/home/<name>`. Re-doing it later means re-running `setup-tools.sh` and re-cloning.
 - **Blocks:** nothing now
