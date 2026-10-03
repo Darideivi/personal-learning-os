@@ -237,17 +237,17 @@ Read from upstream source (`dev`, `5e28b07`). Phase 0 confirms them on DavidLab;
 # Setup (DavidLab, inside WSL Ubuntu)
 gh repo fork learnhouse/learnhouse --clone=false     # creates Darideivi/learnhouse
 git clone https://github.com/Darideivi/learnhouse.git ~/dev/learnhouse && cd ~/dev/learnhouse
-git remote add upstream https://github.com/learnhouse/learnhouse.git
+git remote add upstream https://github.com/learnhouse/learnhouse.git   # ✅ fork, clone and remotes done in goal 1
 git fetch upstream && git merge upstream/dev          # upstream default branch is dev
 
 # Run (Postgres + Redis in Docker; API :1338, web :3000, collab :4000 native, hot reload)
-npx learnhouse dev            # first run is interactive: dev defaults + admin email/password
+npx learnhouse dev            # ✅ ran 2026-10-03. Interactive by default; non-interactive: pre-write the 3 env files, then add --admin-email/--admin-password
 npx learnhouse status | logs | doctor | health
 docker compose -f .learnhouse/docker-compose.dev.yml -p learnhouse-dev down   # stop DB + Redis
 
 # Database (from apps/api). Fresh DBs come from create_all, not Alembic.
-uv run alembic current                       # empty until stamped
-uv run alembic stamp head                    # once, before the first custom migration
+uv run alembic current                       # ✅ empty until stamped (confirmed 2026-10-03)
+uv run alembic stamp head                    # ✅ run 2026-10-03 -> b1c2d3e4f5a6 (head). Once, before the first custom migration
 uv run alembic revision --autogenerate -m "add inbox_item"
 uv run alembic upgrade head
 

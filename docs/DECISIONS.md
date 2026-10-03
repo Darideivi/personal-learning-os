@@ -96,7 +96,7 @@ Status: **Accepted** (decided and in effect) · **Proposed** (drafted, waiting f
 
 ## Org settings to apply after the first run
 
-Recorded here because they live in the database (D-004). Confirm the exact screen names during Phase 0 exploration.
+Recorded here because they live in the database (D-004). **Applied 2026-10-03 on DavidLab through the API** (admin login, org `default`, id 1) and read back from `GET /orgs/slug/default`: signup `inviteOnly`, auth methods `["password"]`, communities off, menu = Courses + Library (podcasts, communities, playgrounds, store disabled). The exact dashboard screen names are not confirmed yet (browser click-through is on David's list in STATUS.md). Exact API calls and stored paths are in ARCHITECTURE_NOTES section 7. A fresh install needs these re-applied, since they live in the database and not in git.
 
 | Setting | Value | Hides |
 |---|---|---|

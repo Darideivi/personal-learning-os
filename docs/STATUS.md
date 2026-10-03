@@ -2,13 +2,52 @@
 
 The handoff file. Every session reads it first and updates it last, so a fresh session can continue without the old chat.
 
-**Last updated:** 2026-10-03, DavidLab session (Claude, Sonnet, goal 1)
+**Last updated:** 2026-10-03, DavidLab session (Claude, Sonnet, goal 2)
 
 ## Where we are
 
-Everything that can be done without DavidLab is done. Phase 0 (running LearnHouse) is waiting on David's manual steps. The Inbox design is drafted and waiting for approval.
+LearnHouse **runs on DavidLab** (web :3000, API :1338, collab :4000, DB + Redis healthy). Phase 0 checks are done except the ones that need a browser or the Anthropic key. The Inbox design is drafted and waiting for approval (Q10).
 
-## Done
+## Done in goal 2 (2026-10-03)
+
+- Fixed why `npx learnhouse dev` never started: Linux `node`/`bun`/`uv` weren't on the PATH (`.bashrc` early-returns when `PS1` is unset). Now `/root/.toolchain.sh` is sourced from `.profile` and the top of `.bashrc`.
+- Started the stack non-interactively: pre-wrote the dev env defaults, ran `learnhouse dev --admin-email --admin-password`. Admin login `admin@school.dev`; the generated password is in `/root/dev/learnhouse/.learnhouse/admin-credentials.txt` (gitignored, never copied into this repo).
+- Verification passed: `docker ps` (db + redis healthy, n8n/Jellyfin/cloudflared/nginx untouched), `curl :1338/` returns the welcome message, `:3000` returns 200, Ollama lists `nomic-embed-text`, `alembic current` showed no revision before stamping.
+- `uv run alembic stamp head` run once: now `b1c2d3e4f5a6 (head)`.
+- Org settings applied through the API and read back: signup `inviteOnly`, sign-in `["password"]`, communities off, menu = Courses + Library. Real stored paths are in ARCHITECTURE_NOTES section 7.
+- Sections F and G docs: ARCHITECTURE_NOTES ⏳ items confirmed or marked open, DECISIONS (org settings applied), LEARNING_LOG (5 new entries), CLAUDE.md commands marked ✅ only where run, OPEN_QUESTIONS (Q11 answered; Q13 to Q15 added).
+
+## Failing or not verified
+
+- **`uv run pytest src/tests/ -q`**: started 2026-10-03, ran for 30+ minutes at ~95% CPU with no output (piped through `tail`). Result is **not yet recorded**; see the update line at the bottom of this section if present.
+- **AI panel / embeddings rows**: not checked. `LEARNHOUSE_AI_API_KEY` is still the placeholder (Q13).
+- **Browser checks**: Chrome (Claude in Chrome) showed a connection error page for `http://localhost:3000/login` twice, although PowerShell gets 200 (Q14).
+- **`python3 scripts/notes/check_notes.py`**: the file doesn't exist in this repo (Q15), so it was not run.
+- Not run: `npx learnhouse status|logs|doctor|health`, web tests, ruff, eslint, tsc, `git fetch upstream`.
+
+## Click-through list for David (browser)
+
+1. Open http://localhost:3000 (try `http://[::1]:3000` if it won't load) and log in as `admin@school.dev`.
+2. Create a course, a chapter and an activity; open the editor and confirm the collab websocket (port 4000) connects.
+3. Dashboard → Organization settings: confirm the settings above show as applied and note the exact screen names (DECISIONS and ARCHITECTURE_NOTES section 7).
+4. Look for what is still visible: certificates, hub/billing/new-org routes, explore pages, member and invite screens. List them as Phase 1 code tasks in DECISIONS.
+5. After putting the real key in `apps/api/.env` (Q13): open the AI panel and generate text, then save an activity and check `course_embedding` rows.
+6. Try library folders, search and progress (Trail).
+
+## Next
+
+1. **David:** Q13 (Anthropic key), then the click-through list above.
+2. **David:** approve `docs/INBOX_DESIGN.md` (Q10, plus I-1 to I-7). Q3, Q4, Q6, Q8 can wait. Optional: Q7 backup cron (line in the header of `scripts/davidlab/backup-db.sh`).
+3. Record the pytest result here, then build the Inbox (start.md Prompt 2) on Sonnet with one Fable review at the end.
+
+## Blockers
+
+- The dev stack runs from the session that started it. If that session ends, restart with `cd ~/dev/learnhouse && npx learnhouse dev` in Ubuntu; it reuses the DB.
+- Items under "Failing or not verified" need David (key, browser) or an answer to Q15.
+
+## History (earlier sessions)
+
+### Done before goal 2
 
 - Read upstream `learnhouse@dev` (`5e28b07`). Wrote `ARCHITECTURE_NOTES.md`, `DECISIONS.md` (D-001 to D-006), `LEARNING_LOG.md`.
 - Corrected `PHASE0_PLAN.md` and added two ready-to-paste `/goal`s. Goal 1 now uses `scripts/davidlab/setup-tools.sh`.
@@ -17,14 +56,14 @@ Everything that can be done without DavidLab is done. Phase 0 (running LearnHous
 - `docs/INBOX_DESIGN.md` drafted on Fable; key claims spot-checked against upstream source. Only upstream edit it needs: one `include_router` in `apps/api/src/router.py`.
 - David answered Q1, Q2, Q5, Q9: new models (D-007), Ollama embeddings from the first run (D-006), database is the source of truth after a one-way import (D-008), Pro plan (Fable spends only usage credits). Plans and `.env.example` switched from Gemini to Ollama.
 
-## Done on DavidLab (goal 1, 2026-10-03, Sonnet)
+### Done on DavidLab (goal 1, 2026-10-03, Sonnet)
 
 - `setup-tools.sh` ran in WSL Ubuntu: node v24.21.0, npm 11.19.0, bun 1.4.2, uv 0.12.22, graphify 0.9.74. Two fixes: shell scripts had CRLF endings (added `.gitattributes` with `*.sh text eol=lf`, converted both scripts), and the Docker check is now a warning instead of a hard stop (tools don't need Docker).
 - Forked `Darideivi/learnhouse` and cloned it to `/root/dev/learnhouse` inside WSL. `git remote -v` shows origin = Darideivi/learnhouse, upstream = learnhouse/learnhouse.
 - `apps/api/.env` created with the D.1 block, placeholders only (`LEARNHOUSE_AI_API_KEY=<anthropic-key>`). It is gitignored. Ollama and `nomic-embed-text` were already present in Ubuntu.
 - Nothing committed or pushed. Existing containers untouched. `npx learnhouse dev` not run.
 
-## Next
+### Old Next list (before goal 2, superseded)
 
 1. **David, by hand:** enable Docker WSL integration for Ubuntu (OPEN_QUESTIONS Q11). Without it `npx learnhouse dev` can't start Postgres/Redis.
 2. **David:** open `apps/api/.env` (`! wsl -d Ubuntu nano ~/dev/learnhouse/apps/api/.env`), replace `<anthropic-key>` with the real key, then in his own Ubuntu terminal run `cd ~/dev/learnhouse && npx learnhouse dev` (answer yes to dev defaults, set admin email/password) and leave it running. First run takes several minutes.
@@ -33,11 +72,11 @@ Everything that can be done without DavidLab is done. Phase 0 (running LearnHous
 3. **David:** approve `docs/INBOX_DESIGN.md` (OPEN_QUESTIONS Q10, plus its I-1 to I-7). Q3, Q4, Q6, Q8 can wait.
 4. After approval and Phase 0: build the Inbox (start.md Prompt 2) on Sonnet, with one Fable review at the end.
 
-## Blockers
+### Old Blockers (before goal 2, superseded)
 
 - Cloud sessions can't run LearnHouse (Docker Hub, apt and the Python 3.14.7 download are blocked). Nothing more can move here until Phase 0 runs on DavidLab or David answers the open questions.
 
-## Notes for the next session
+### Notes for the next session
 
 - Credit: a Fable job interrupted mid-run on 2026-10-03 spent credit without producing output. Don't interrupt Fable jobs; resume them with SendMessage instead of restarting.
 - Push access to this repo works (Claude GitHub App installed 2026-10-03).

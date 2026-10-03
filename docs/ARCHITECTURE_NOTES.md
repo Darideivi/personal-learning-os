@@ -106,7 +106,7 @@ Course ── CourseEmbedding (pgvector, 768 dims, per chunk)
 
 ## 7. What can be hidden without code
 
-Org-level toggles live in `OrganizationConfig` and are edited from **Dashboard → Organization settings** ⏳ (confirm screen names).
+Org-level toggles live in `OrganizationConfig` and are edited from **Dashboard → Organization settings** (screen names still ⏳ open: not clicked through yet; the API endpoints below were confirmed and used on 2026-10-03).
 
 | Want hidden | How | Code needed? |
 |---|---|---|
@@ -117,11 +117,12 @@ Org-level toggles live in `OrganizationConfig` and are edited from **Dashboard �
 | Sign-in methods | `admin_toggles.security.allowed_auth_methods = ["password"]` | No |
 | Top menu items | `menu.items` (courses, library, podcasts, communities, playgrounds, store, custom) | No. Custom links could even point at `/inbox` later |
 | Multi-org / tenancy | Tenancy defaults to `single` on localhost | No |
-| Certificates page, Hub/billing routes, Explore/marketing pages | Not covered by a toggle found so far | ⏳ Check while exploring. Phase 1 code task if visible |
+| Certificates page, Hub/billing routes, Explore/marketing pages | Not covered by a toggle found so far | Open: needs a browser click-through (see STATUS.md). Phase 1 code task if visible |
 
 Notes:
 - The web app **ignores** `NEXT_PUBLIC_LEARNHOUSE_MULTI_ORG`. Tenancy comes from the backend via the `LH_tenancy` cookie.
 - `LEARNHOUSE_USE_DEFAULT_ORG` is superseded by `LEARNHOUSE_TENANCY` (`single` | `multi`).
+- **Confirmed paths (2026-10-03, read back via `GET /orgs/slug/default`):** signup mode is `config.admin_toggles.members.signup_mode`; communities off is `config.admin_toggles.communities.disabled=true` (shows as `resolved_features.communities.enabled=false`); the menu is `config.customization.menu.items`. API calls used: `PUT /orgs/{id}/signup_mechanism?signup_mechanism=inviteOnly`, `PUT /orgs/{id}/config/communities?communities_enabled=false`, `PUT /orgs/{id}/config/menu` (body `{"items":[...]}`), `PUT /auth/mfa/org-policy/{id}` (body `{"allowed_auth_methods":["password"]}`). Login is `POST /auth/login` (form `username`, `password`).
 
 ## 8. Migrations, tests and lint
 
@@ -137,7 +138,7 @@ Notes:
 | Web tests | `bun test tests` | |
 | Web lint | `bunx eslint .` | Report-only upstream (existing backlog). |
 | Web typecheck | `bunx next typegen && bunx tsc --noEmit` | |
-| E2E | `apps/e2e` (Playwright) | ⏳ Confirm how to point it at the dev stack. |
+| E2E | `apps/e2e` (Playwright) | Confirmed from `apps/e2e/core/instance.ts`: set `E2E_BASE_URL` to reuse a running instance (default boots its own self-host on port 8080 via the CLI). Set `E2E_ADMIN_EMAIL` / `E2E_ADMIN_PASSWORD` and `E2E_ORG_SLUG` (default `default`). Not run yet. |
 | Lockfiles | `scripts/lockfiles.sh` | After touching `package.json` or `pyproject.toml`. CI checks them. |
 
 ⚠️ Because startup uses `create_all`, a new SQLModel table **appears in dev even without a migration**. Missing migrations stay invisible locally. For the Inbox, always generate and run the migration, and test `alembic upgrade head` on a fresh DB.

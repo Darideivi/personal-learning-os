@@ -13,10 +13,20 @@ How to answer: write the answer under the question (a line is enough), then move
 
 ## Waiting for David
 
-### Q11 · Docker is not reachable from WSL Ubuntu. Enable the integration?
-Found 2026-10-03: `docker info` fails inside Ubuntu, so Docker Desktop's WSL integration is off for it. Needs a GUI click: Docker Desktop → Settings → Resources → WSL integration → enable **Ubuntu** → Apply & restart. Check with `wsl -d Ubuntu -- docker ps` (should list n8n, Jellyfin, etc.).
-- **Blocks:** the first `npx learnhouse dev` (it starts Postgres + Redis containers)
+### Q13 · Put the real Anthropic key into `apps/api/.env`
+Found 2026-10-03: `LEARNHOUSE_AI_API_KEY` is still the `<anthropic-key>` placeholder, so the AI panel cannot be verified. Claude never enters real keys. Edit the file yourself (`wsl -d Ubuntu -u root -- nano /root/dev/learnhouse/apps/api/.env`), then type `ra` in the dev window (or restart `npx learnhouse dev`) to restart the API.
+- **Blocks:** Verification item "AI panel generates text through Anthropic" and the `course_embedding` row check
 - **Default:** none. Needs David.
+
+### Q14 · Click-through checks (browser) and Chrome cannot open localhost:3000
+Found 2026-10-03: the Claude-in-Chrome tab showed a connection error page for `http://localhost:3000/login` twice, while PowerShell gets HTTP 200 from the same URL (and `127.0.0.1:3000` refuses, so WSL localhost forwarding is IPv6 or `localhost` only). The click-through list is in STATUS.md. If your own Chrome also fails, try `http://[::1]:3000` and tell me.
+- **Blocks:** browser verification items
+- **Default:** none.
+
+### Q15 · `scripts/notes/check_notes.py` is missing
+The goal says `python3 scripts/notes/check_notes.py` should still pass, but that file is not in this repo (`scripts/` only has `davidlab/`; it is not tracked in git and CLAUDE.md never mentions it). Was it on another branch, the work laptop, or the cloud session? Also, Windows has no Python, so it would have to run inside Ubuntu.
+- **Blocks:** nothing
+- **Default:** skip the check and record it as not run.
 
 ### Q12 · Ubuntu has only `root` and no normal user. Create one?
 Found 2026-10-03: `wsl -d Ubuntu` logs in as `root` (home `/root`), so the clone is at `/root/dev/learnhouse` and the tools are under `/root`. Everything works, but running dev servers and Docker as root is poor Linux practice, and `~/dev` is not under a normal `/home/<name>`. Re-doing it later means re-running `setup-tools.sh` and re-cloning.
@@ -52,6 +62,9 @@ It maps a different project and was built from the work laptop.
 - **Default:** none. The build waits for David's OK, because it's real code in the fork.
 
 ## Answered
+
+### Q11 · Docker is not reachable from WSL Ubuntu. Enable the integration?
+**Answer (2026-10-03):** Done. `docker ps` in Ubuntu lists n8n, Jellyfin, cloudflared and nginx, and the LearnHouse DB and Redis containers came up.
 
 ### Q1 · Where does personal knowledge live: inside LearnHouse courses, or in new models?
 **Answer (2026-10-03):** New models. Recorded as D-007.

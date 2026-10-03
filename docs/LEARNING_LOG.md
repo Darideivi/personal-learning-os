@@ -43,3 +43,23 @@ The cloud session could clone GitHub but couldn't pull Docker Hub images, instal
 ### CRLF vs LF line endings (infrastructure)
 Git for Windows checked `setup-tools.sh` out with CRLF endings (`core.autocrlf=true`). Bash then read `\r` as part of each line and failed with `$'\r': command not found` and `set: pipefail: invalid option name`. Fix: `.gitattributes` with `*.sh text eol=lf` forces LF on every checkout, whatever the machine's git config.
 **Study next:** `.gitattributes` and `core.autocrlf`, how to spot hidden carriage returns (`file script.sh`, `cat -A`).
+
+### Login vs interactive shells: why `PATH` was empty (infrastructure)
+2026-10-03: `npx learnhouse dev` never started because Ubuntu's `node`, `bun` and `uv` weren't on the PATH. `npx` resolved to the Windows copy under `/mnt/c/Program Files/nodejs`. The installers had appended PATH lines to the end of `~/.bashrc`, but Ubuntu's default `.bashrc` starts with `[ -z "$PS1" ] && return`, so a shell started without `PS1` (David's came from `sh` then `bash`) exits before reaching them. `source ~/.bashrc` hit the same early return. Fix: `/root/.toolchain.sh` holds the exports, sourced from `.profile` and from the very top of `.bashrc`.
+**Study next:** login vs non-login vs interactive shells, which startup files bash reads, `$PS1`, WSL's Windows-PATH interop (`appendWindowsPath`).
+
+### WSL is not Docker (infrastructure)
+David expected the Ubuntu terminal to live "in Docker". It doesn't: Ubuntu is a WSL2 distro, Docker Desktop is a separate WSL distro (`docker-desktop`), and "WSL integration" only exposes the Docker CLI/socket to Ubuntu. `wsl` is a Windows command, so it isn't found inside Ubuntu.
+**Study next:** WSL2 architecture, `wsl -l -v`, the Docker Desktop WSL backend.
+
+### Non-interactive `learnhouse dev` (infrastructure)
+The two first-run prompts can be skipped. `--admin-email` / `--admin-password` skip the admin prompts, and pre-writing the missing vars (JWT secret, collab key, web backend URL, collab port/API URL) skips "Apply dev defaults?". The `checkDevEnv` function only prompts when something required is missing. The generated admin password lives in `/root/dev/learnhouse/.learnhouse/admin-credentials.txt` (gitignored, mode 600).
+**Study next:** CLI prompt libraries (`@clack/prompts`) and why TTY-less processes hang on them.
+
+### Org config is nested differently than the draft assumed (what broke)
+The Phase 0 plan listed `features.communities.enabled` and `menu.items`. The stored paths are `config.admin_toggles.communities.disabled` (surfaced as `resolved_features`) and `config.customization.menu.items`. Always read back after writing; a 200 from a PUT doesn't prove the field you expected changed.
+**Study next:** JSON column design, "resolved" vs stored config, read-your-writes checks.
+
+### Slow test suites and piped output (infrastructure)
+`uv run pytest src/tests/ -q | tail` prints nothing until the whole suite ends. On the i5-6500T the API suite (323 test files) ran for a long time at ~95% CPU. For long runs, write to a log file with `tee` so progress is visible.
+**Study next:** pytest `-x`, `--durations`, `-p no:cacheprovider`, running a subset by marker.
