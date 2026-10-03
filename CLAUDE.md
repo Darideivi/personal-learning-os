@@ -277,7 +277,8 @@ graphify .            # then query graphify-out/ instead of grepping
 | `docs/STATUS.md` | **Handoff file.** Read first, update last, every session. |
 | `docs/OPEN_QUESTIONS.md` | Decisions waiting for David, each with what it blocks and a default. |
 | `docs/PHASE0_PLAN.md` | Step-by-step plan for running and understanding LearnHouse on DavidLab, with ready-to-paste `/goal`s. |
-| `docs/INBOX_DESIGN.md` | Draft design for the Learning Inbox (needs David's approval, see OPEN_QUESTIONS Q10). |
+| `docs/INBOX_DESIGN.md` | Approved design for the Learning Inbox (Q10 answered 2026-10-03). |
+| `docs/INBOX_BUILD_TASK.md` | Task brief for the cloud session that writes the Inbox code (items 1 to 7). |
 | `scripts/davidlab/` | DavidLab helpers: `setup-tools.sh` (Phase 0 section B, no sudo), `backup-db.sh` (nightly Postgres dump). |
 | `docs/ARCHITECTURE_NOTES.md` | How LearnHouse works: request flow, data model, auth, AI/RAG, what can be hidden, migrations and tests. |
 | `docs/DECISIONS.md` | Architecture decisions (accepted and proposed), org settings to apply, Phase 1 code tasks. |
